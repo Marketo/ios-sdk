@@ -1,1 +1,1 @@
-# Marekto iOS SDK
+# Marketo iOS SDK
