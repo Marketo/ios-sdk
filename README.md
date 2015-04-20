@@ -1,4 +1,4 @@
-# Marekto iOS-framework 0.3.2
+# Marketo iOS-framework 0.3.2
 =============
 
 
