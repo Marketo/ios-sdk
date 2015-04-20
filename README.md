@@ -22,7 +22,7 @@ Or
 <strong>Step II: Unzip and Install</strong>
 
 1. Make sure you are using the latest version of Xcode (v4.6+) and targeting iOS 4.3 or higher.
-2. Download https://github.com/Marketo/ios-sdk./archive/master.zip
+2. Download https://github.com/Marketo/ios-sdk/archive/master.zip
 2. Unzip the file and drag the Marketo.framework folder into your Xcode project folder target.
 
 
