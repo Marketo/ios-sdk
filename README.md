@@ -1,15 +1,9 @@
 # Marketo iOS-framework 0.3.2
 =============
 
+## Setup
 
-<strong>Step I: Configure Your Application</strong>
-
-1. Login to Marketo Admin
-2. Create a mobile application
-3. Get Marketo Secret Key
-
-
-<strong>Step I: Cocoapod Users</strong>
+<strong>Cocoapod Users</strong>
 
 If you are using then add following line in you Podfile
 
@@ -19,7 +13,7 @@ pod 'Marketo-iOS-SDK', :git =>'https://github.com/Marketo/ios-sdk.git'
 
 Or 
 
-<strong>Step II: Unzip and Install</strong>
+<strong>Step I: Unzip and Install</strong>
 
 1. Make sure you are using the latest version of Xcode (v4.6+) and targeting iOS 4.3 or higher.
 2. Download https://github.com/Marketo/ios-sdk/archive/master.zip
@@ -41,9 +35,13 @@ Or
 3.CoreTelephony.framework<br>
 4.CoreData.framework
 
-<strong> Step V: Import, Buld & Run</strong>
+## Configure
 
-1. Open your AppDelegate.m file. Import Marketo header
+1. Login to Marketo Admin
+2. Create a mobile application
+3. Copy snipet with Secret Key & Munchkin-id
+4. Open your AppDelegate.m file. Import Marketo header
+5. Paste snipet into application:didFinishLaunchingWithOptions:
 2. Build your application. 
 
 <strong>Run!</strong>
