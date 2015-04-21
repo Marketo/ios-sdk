@@ -1,5 +1,4 @@
 # Marketo iOS-framework 0.3.2
-=============
 
 ## Setup
 
