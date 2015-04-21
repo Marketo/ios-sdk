@@ -19,7 +19,7 @@ Or
 2. Unzip the file and drag the Marketo.framework folder into your Xcode project folder target.
 
 
-<strong>Step II|: Link libraries</strong>
+<strong>Step II: Link libraries</strong>
 
 1.Select you project in Xcode<br>
 2.Click your app name under Targets<br>
@@ -27,7 +27,7 @@ Or
 4.Expand the Link Binary With Libraries<br>
 
 
-<strong> Step IV: Add the following frameworks:</strong>
+<strong> Step III: Add the following frameworks:</strong>
 
 1.SystemConfiguration.framework<br>
 2.Security.framework<br>
@@ -35,6 +35,8 @@ Or
 4.CoreData.framework
 
 ## Configure
+
+<strong> Step V: Import, Buld & Run</strong>
 
 1. Login to Marketo Admin
 2. Create a mobile application
