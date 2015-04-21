@@ -36,7 +36,7 @@ Or
 
 ## Configure
 
-<strong> Step V: Import, Buld & Run</strong>
+<strong>Import, Buld & Run</strong>
 
 1. Login to Marketo Admin
 2. Create a mobile application
