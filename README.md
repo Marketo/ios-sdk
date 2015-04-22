@@ -1,6 +1,6 @@
 # Marketo iOS-framework 0.3.2
 
-## Initializing the SDK
+## Installing the SDK
 
 Easiest way to add Marketo iOS SDK into your project is to use <a href="https://cocoapods.org">CocoaPods</a>:
 
