@@ -32,7 +32,7 @@ Or
 1.SystemConfiguration.framework<br>
 2.Security.framework<br>
 3.CoreTelephony.framework<br>
-4.CoreData.framework
+4.libsqlite3.dylib
 
 ## Configure
 
