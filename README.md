@@ -2,15 +2,30 @@
 
 ## Setup
 
-<strong>Cocoapod Users</strong>
+Easiest way to add Marketo iOS SDK into your project is to use <a href="https://cocoapods.org">CocoaPods</a>:
 
-If you are using then add following line in you Podfile
-
-
-platform :ios, '6.0' <br>
+<ol>
+<li>Install Cocoapods by running <code>sudo gem install cocoapods</code>.</li>
+<li>Create a file in your Xcode project directory called Podfile or CocoaPods provides a <code>pod init</code> command to create a Podfile with smart defaults</li>
+<li>Add the following line to your Podfile</br>
+<code>
 pod 'Marketo-iOS-SDK', :git =>'https://github.com/Marketo/ios-sdk.git'
+</code>
+</li>
+<li>Run pod install within your Xcode project directory. CocoaPods will download and install the Marketo iOS SDK.</li>
+<li>Open installation is complete,Open up this workspace in Xcode.</li>
+</ol>
 
-Or 
+## Configure
+
+1. Login to Marketo Admin
+2. Create a new mobile application
+3. Copy & paste the snipet with Secret Key & Munchkin-id
+4. Open your AppDelegate.m file. Import Marketo.h 
+5. Paste snipet into application:didFinishLaunchingWithOptions:
+2. Build & run your application. 
+
+You can also install the Marketo iOS SDK manually. To install it manually follow these steps.
 
 <strong>Step I: Unzip and Install</strong>
 
@@ -26,23 +41,9 @@ Or
 3.Select the Build Phases tab<br>
 4.Expand the Link Binary With Libraries<br>
 
-
 <strong> Step III: Add the following frameworks:</strong>
 
 1.SystemConfiguration.framework<br>
 2.Security.framework<br>
 3.CoreTelephony.framework<br>
 4.libsqlite3.dylib
-
-## Configure
-
-<strong>Import, Buld & Run</strong>
-
-1. Login to Marketo Admin
-2. Create a mobile application
-3. Copy snipet with Secret Key & Munchkin-id
-4. Open your AppDelegate.m file. Import Marketo header
-5. Paste snipet into application:didFinishLaunchingWithOptions:
-2. Build your application. 
-
-<strong>Run!</strong>
