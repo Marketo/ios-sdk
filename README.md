@@ -18,12 +18,20 @@ pod 'Marketo-iOS-SDK', :git =>'https://github.com/Marketo/ios-sdk.git'
 
 ## Initializing the SDK
 
-1. Login to Marketo Admin
-2. Create a new mobile application
-3. Copy & paste the snipet with Secret Key & Munchkin-id
-4. Open your AppDelegate.m file. Import Marketo.h 
-5. Paste snipet into application:didFinishLaunchingWithOptions:
-2. Build & run your application. 
+Before you use Marketo iOS SDK, you must initialize it with your Munchkin-id & App secret key. You can find your Munchkin-id & app secret key in Marketo Admin area under mobile apps.
+
+<ol>
+<li>Open up your <code>AppDelegate.m</code> file and add the following import to the top of the file:<br>
+<code>#import &ltMarketo/Marketo.h&gt</code>
+</li>
+<li>
+Then paste the following inside the <code>application:didFinishLaunchingWithOptions:</code> function:</br>
+<p>
+<code>[[Marketo sharedInstance] initializeWithMunchkinID:@"YOUR_MUNCHKIN_ID"appSecret:@"YOUR_APP_SECRET" launchOptions:launchOptions];
+</code>
+</p>
+</li>
+</ol>
 
 You can also install the Marketo iOS SDK manually. To install it manually follow these steps.
 
