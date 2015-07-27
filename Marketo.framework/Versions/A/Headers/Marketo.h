@@ -2,7 +2,6 @@
 // Marketo.h
 //
 // Marketo Mobile Engagement framework
-// Version: 0.3.4
 //
 // Copyright (c) 2007-2015, Marketo, Inc. All rights reserved.
 
@@ -107,6 +106,15 @@
  */
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url
  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
+
+
+
+/*!
+* Override System's didReceiveLocalNotification method to Operate PushNotification
+* @param application The singleton app object
+ * @param notification UILocalNotification object supplied by the source app.
+*/
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification;
 
 
 /*!

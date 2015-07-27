@@ -2,7 +2,6 @@
 // MarketoActionMetadata.h
 //
 // Marketo Mobile Engagement framework
-// Version: 0.3.4
 //
 // Copyright (c) 2007-2015, Marketo, Inc. All rights reserved.
 

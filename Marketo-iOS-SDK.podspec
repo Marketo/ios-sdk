@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name                = "Marketo-iOS-SDK"
-s.version             = "0.4.0"
+s.version             = "0.4.1"
 s.summary             = "Add Marketo Mobile Engagement to your project."
 s.description         = <<-DESC
                             MarketoPod provides the following features:
@@ -29,5 +29,4 @@ s.public_header_files = 'Marketo.framework/**/*.h'
 s.vendored_frameworks = "Marketo.framework"
 s.frameworks          = 'SystemConfiguration', 'Security', 'CoreTelephony'
 s.library			  = 'sqlite3'
-s.xcconfig            = { 'OTHER_LDFLAGS' => '-lObjC -all_load', 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/Marketo-iOS-SDK"'}
 end
