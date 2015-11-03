@@ -19,7 +19,7 @@ LICENSE
 }
 
 s.author              = { "Rudy Gomez" => "rgomez@marketo.com" }
-s.source              = { :git => "https://github.com/Marketo/ios-sdk.git", :tag => s.version.to_s }
+s.source              = { :git => "https://github.com/Marketo/ios-sdk.git", :tag => s.version }
 
 s.platform            = :ios, '6.0'
 s.requires_arc        = false
