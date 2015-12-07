@@ -13,7 +13,9 @@
 
 #import <Marketo/MarketoLead.h>
 #import <Marketo/MarketoActionMetaData.h>
+#import <Marketo/MKTSecuritySignature.h>
 #import <UIKit/UIKit.h>
+
 
 @interface Marketo : NSObject
 
@@ -116,10 +118,36 @@
 */
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification;
 
+/*!
+ * Set security Signature for Authentication
+ * @param token - The Security Token recived from client server
+ */
+- (void) setSecureSignature:(MKTSecuritySignature *) conf;
+
+/*!
+ * Remove security Signature from SDK .
+ *
+ */
+- (void) removeSecureSignature;
+
+/*!
+ * Returns a BOOL for the SDK enabled the Secure mode or not .
+ *
+ */
+- (BOOL) isSecureModeEnabled;
+
+/*!
+ * Returns a Device ID used by SDK.
+ *
+ */
+- (NSString *) getDeviceId;
 
 /*!
  * This object should be initialized via shared instance
  */
 - (id)init __attribute__((unavailable("cannot use init for this class, use +(Marketo*)sharedInstance instead")));
+
+
+
 
 @end

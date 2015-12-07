@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name                = "Marketo-iOS-SDK"
-s.version             = "0.4.7"
+s.version             = "0.4.9"
 s.summary             = "Add Marketo Mobile Engagement to your project."
 s.description         = <<-DESC
                             MarketoPod provides the following features:
@@ -19,7 +19,7 @@ LICENSE
 }
 
 s.author              = { "Rudy Gomez" => "rgomez@marketo.com" }
-s.source              = { :git => "https://github.com/Marketo/ios-sdk.git", :tag => s.version.to_s }
+s.source              = { :git => "https://github.com/Marketo/ios-sdk.git", :tag => s.version }
 
 s.platform            = :ios, '6.0'
 s.requires_arc        = false
