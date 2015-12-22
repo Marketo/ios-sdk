@@ -1,4 +1,4 @@
-# Marketo Mobile SDK for iOS 0.5.1
+# Marketo Mobile SDK for iOS 0.5.2
 
 The Marketo Mobile SDK allows integration with Marketo Mobile Engagement (MME).  
 
