@@ -7,44 +7,39 @@
 
 /*!
  * @header MarketoActionMetaData.h
- * @discussion The MarketoActionMetaData class is used to encapsulate the action's metadata. 
+ * @discussion The MarketoActionMetaData class is used to encapsulate the action's metadata.
  * @updated 2015-04-29
  */
 
 #import <Foundation/Foundation.h>
 
-
 @interface MarketoActionMetaData : NSObject
 
-- (id) init;
+- (id)init;
 
 /*!
  * Set the action type
  * @param type String phrase that describes the type of action
  */
--(void) setType:(NSString *) type;
-
+- (void)setType:(NSString *)type;
 
 /*!
  * Set the action details
  * @param details String that contains more details about the action
  */
--(void) setDetails:(NSString *) details;
-
+- (void)setDetails:(NSString *)details;
 
 /*!
  * Set the action metric
  * @param metric Number that represents the metric of the action
  */
--(void) setMetric:(NSNumber *) metric;
-
+- (void)setMetric:(NSNumber *)metric;
 
 /*!
  * Set the action length
  * @param length Number that represents the length of the action
  */
--(void) setLength:(NSNumber *) length;
-
+- (void)setLength:(NSNumber *)length;
 
 ///*!
 // * Set custom action metadata.
@@ -52,11 +47,10 @@
 // */
 //-(void) setFieldName:(NSString *) name withValue:(NSString *) value;
 
-
 /*!
  * Return action metadata.
  * @return userData Dictionary containing action metadata
  */
--(NSDictionary *) actionMetadata;
+- (NSDictionary *)actionMetadata;
 
 @end

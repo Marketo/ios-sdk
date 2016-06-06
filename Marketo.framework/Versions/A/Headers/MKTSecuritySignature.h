@@ -19,7 +19,7 @@
  * Returns a MKTSecuritySignature Object .
  * @return instance of class MKTSecuritySignature.
  */
--(id)initWithAccessKey:(NSString *)accessKey signature:(NSString *)signature timestamp:(NSString *)timestamp  email:(NSString *)email;
+- (id)initWithAccessKey:(NSString *)accessKey signature:(NSString *)signature timestamp:(NSString *)timestamp email:(NSString *)email;
 
 /*!
  * Returns a AccessKey .

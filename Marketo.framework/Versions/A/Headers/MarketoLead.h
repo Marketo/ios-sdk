@@ -15,130 +15,114 @@
 
 @interface MarketoLead : NSObject
 
-- (id) init;
+- (id)init;
 
 /*!
  * Update the lead's email.
- * @param email The email to be associated with the device 
+ * @param email The email to be associated with the device
  */
--(void) setEmail:(NSString *) email;
-
+- (void)setEmail:(NSString *)email;
 
 /*!
  * Update the lead's gender.
  * @param gender String that represents lead's gender. ex. male, female
  */
--(void) setGender:(NSString *) gender;
-
+- (void)setGender:(NSString *)gender;
 
 /*!
  * Update the lead's first name.
  * @param firstName String containing lead's first name
  */
--(void) setFirstName:(NSString *) firstName;
+- (void)setFirstName:(NSString *)firstName;
 
-
-/*! 
+/*!
  * Update the lead's last name.
  * @param lastName String containing lead's last name
  */
--(void) setLastName:(NSString *) lastName;
-
+- (void)setLastName:(NSString *)lastName;
 
 /*!
  * Update the lead's address.
  * @param address String containing address of the lead
  */
--(void) setAddress:(NSString *) address;
+- (void)setAddress:(NSString *)address;
 
 /*!
  * Update the lead's city.
  * @param city String containing name of the lead's city name
  */
--(void) setCity:(NSString *) city;
-
+- (void)setCity:(NSString *)city;
 
 /*!
  * Update the lead's state.
  * @param state String containing the lead's state name
  */
--(void) setState:(NSString *) state;
-
+- (void)setState:(NSString *)state;
 
 /*!
  * Update the lead's country.
  * @param country String containing the lead's country name
  */
--(void) setCountry:(NSString *) country;
-
+- (void)setCountry:(NSString *)country;
 
 /*!
  * Update the lead's zipcode.
  * @param postalCode String containing then lead's postal code
  */
--(void) setPostalCode:(NSString *) postalCode;
-
+- (void)setPostalCode:(NSString *)postalCode;
 
 /*!
  * Update the lead's install source. ex. _facebookAds or bannerAds.
  * @param leadSource String containing the lead's source
  */
--(void) setLeadSource:(NSString *) leadSource;
-
+- (void)setLeadSource:(NSString *)leadSource;
 
 /*!
  * Update the lead's facebook id.
  * @param facebookId String that contains the lead's facebook id
  */
--(void) setFacebookId:(NSString *) facebookId;
-
+- (void)setFacebookId:(NSString *)facebookId;
 
 /*!
  * Update the lead's twitter id.
  * @param twitterId String that contains the lead's twitter id
  */
--(void) setTwitterId:(NSString *) twitterId;
-
+- (void)setTwitterId:(NSString *)twitterId;
 
 /*!
  * Update the lead's Linkedin id.
  * @param LinkedInId String that contains the lead's LinkedIn id
  */
--(void) setLinkedInId:(NSString *) LinkedInId;
-
+- (void)setLinkedInId:(NSString *)LinkedInId;
 
 /*!
  * Update the lead's users birthday.
  * @param birthday String that contains the lead's birthday with format MM/DD/YYYY
  */
--(void) setBirthDay:(NSString *) birthday;
-
+- (void)setBirthDay:(NSString *)birthday;
 
 /*!
  * Update the lead's facebook profile page url.
  * @param url String that contains the url of the lead's Facebook profile page
  */
--(void) setFacebookProfileURL:(NSString *) url;
-
+- (void)setFacebookProfileURL:(NSString *)url;
 
 /*!
  * Update the lead's facebook profile picture url.
  * @param url String that contains the url of the lead's Facebook profile picture
  */
--(void) setFacebookProfilePicURL:(NSString *) url;
-
+- (void)setFacebookProfilePicURL:(NSString *)url;
 
 /*!
  * Update the lead's custom attributes.
  * @param value String that represents the value of the custom field
  */
--(void) setFieldName:(NSString *) name withValue:(NSString *) value;
-
+- (void)setFieldName:(NSString *)name withValue:(NSString *)value;
 
 /*!
  * Return lead attributes.
  * @return userData Dictionary containing leadData
  */
--(NSDictionary *) userData;
+- (NSDictionary *)userData;
 
 @end
