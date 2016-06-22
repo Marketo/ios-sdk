@@ -19,11 +19,17 @@ v0.5.0
 
 #Marketo iOS SDK Installation Guide
 ##Prerequisites
+
 #####1. Register an application in Marketo Admin portal, get your application secret key and munchkin id.
+
 #####2. Configure Android Push access learn here
+
 #####3. Configure iOS Push access learn [here](http://developers.marketo.com/documentation/mobile/ "Marketo for Mobile").
+
 ##Install Framework via cocoapods 
+
 #####1. Install CocoaPods.
+
 ```Shell 
 sudo gem install cocoapods 
 ```
@@ -32,25 +38,30 @@ sudo gem install cocoapods
 pod init
 ```
 #####3. Open your Podfile.
+
 ```Shell
 open -a Xcode Podfile
 ```
 #####4. Add the following line to your Podfile.
+
 ```Shell
 pod 'Marketo-iOS-SDK'
 ```
 #####5. Save and close your Podfile.
+
 #####6. Download and install Marketo iOS SDK.
+
 ```Shell
 pod install
 ```
 #####7. Open workspace in Xcode. open App.xcworkspace
 
-#Setup Swift Bridging Header  
+# Setup Swift Bridging Header  
 #####1. Go to File > New > File and Select Header File:
 ![header](ScreenShots/Xcode-Choose-Header-File.png)
 
 #####2. Name the file <ProjectName>-Bridging-Header
+
 #####3. Go to Project->Target->Build Phases->Swift Compiler - Code Generation-> Add the following path to Objective-Bridging 
 #####Header: $(PODS_ROOT)/<ProjectName>-Bridging-Header.h
 ![header](ScreenShots/build-phases.png)
@@ -63,7 +74,7 @@ import <Marketo/Marketo.h>
 ```
 #####2. Paste the following code inside the application:didFinishLaunchingWithOptions: function.
 
-###### Objective C
+###### Objective-C
 ```Objective-C
 Marketo *sharedInstance = [Marketo sharedInstance];
 [sharedInstance initializeWithMunchkinID:@"munchkinAccountId" appSecret:@"secretKey" launchOptions:launchOptions];
@@ -78,10 +89,10 @@ sharedInstance.initializeWithMunchkinID("munchkinAccountId", appSecret: "secretK
 #####3. Replace munkinAccountId and secretKey above using your Munchkin Account Id and Secret Key which are found in the Marketo Admin Mobile Apps section.
 ![header](ScreenShots/amobile2.png)
 
- #Setup Push Notification
+#Setup Push Notification
 #####1. Initiate Push notification Service : To enable push notification add below code .
 
-###### Objective C
+###### Objective-C
 ```Objective-C
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
 if ([application respondsToSelector:@selector (registerUserNotificationSettings:)])
@@ -109,7 +120,7 @@ if ([application respondsToSelector:@selector (registerUserNotificationSettings:
 
 #####3. Handle push notification : To handle push notifications received from Marketo , put the below code in AppDelegate .
 
-###### Objective C
+###### Objective-C
 ```Objective-C
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
@@ -125,7 +136,7 @@ if ([application respondsToSelector:@selector (registerUserNotificationSettings:
 ```
 #####4. Handle Local notification : To handle Local notifications received from Marketo SDK , put the below code in AppDelegate. It helps Marketo SDK to handle push notification while app is in foreground .
 
-###### Objective C
+###### Objective-C
 ```Objective-C
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
@@ -147,7 +158,7 @@ func application(application: UIApplication, didReceiveLocalNotification notific
 
 #####5.Include application:openURL:sourceApplication:annotation: to AppDelegate.m
 
-###### Objective C
+###### Objective-C
 ```Objective-C
 - (BOOL)application:(UIApplication *)application
            openURL:(NSURL *)url
@@ -162,8 +173,7 @@ return [[Marketo sharedInstance] application:application
 ###### Swift
 ```Swift
 func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        Marketo.sharedInstance().application(app, openURL: url, sourceApplication: nil, annotation: nil)
-        return true
+        return Marketo.sharedInstance().application(app, openURL: url, sourceApplication: nil, annotation: nil)
  }
 
 ```
