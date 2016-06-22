@@ -58,16 +58,18 @@ pod install
 #SDK Initialization 
 #####Before you can use the Marketo iOS SDK, you must initialize it with your Munchkin Account Id and App Secret Key.  You can find each of these in the Marketo Admin area underneath Mobile Apps.
 #####1. Open your AppDelegate.m or Bridging file (Swift) and import the Marketo.h header file.
-```iOS
+```Objective-C
 import <Marketo/Marketo.h>
 ```
 #####2. Paste the following code inside the application:didFinishLaunchingWithOptions: function.
-```iOS
+```Objective-C
 // Objective-C
 Marketo *sharedInstance = [Marketo sharedInstance];
 [sharedInstance initializeWithMunchkinID:@"munchkinAccountId" appSecret:@"secretKey" launchOptions:launchOptions];
 
-// Swift
+```
+###### Swift
+```Swift
 let sharedInstance: Marketo = Marketo.sharedInstance()
 sharedInstance.initializeWithMunchkinID("munchkinAccountId", appSecret: "secretKey", launchOptions: launchOptions)
 ```
@@ -77,7 +79,7 @@ sharedInstance.initializeWithMunchkinID("munchkinAccountId", appSecret: "secretK
 
  #Setup Push Notification
 #####1. Initiate Push notification Service : To enable push notification add below code .
-```
+```Objective-C
 // Objective-C
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
 if ([application respondsToSelector:@selector (registerUserNotificationSettings:)])
@@ -95,12 +97,78 @@ if ([application respondsToSelector:@selector (registerUserNotificationSettings:
     }
 }
 
-// Swift
+```
+###### Swift
+```Swift
 
   let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
-        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
-        UIApplication.sharedApplication().registerForRemoteNotifications()
+  UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+  UIApplication.sharedApplication().registerForRemoteNotifications()
         
+```
+
+#####3. Handle push notification : To handle push notifications received from Marketo , put the below code in AppDelegate .
+```Objective-C
+// Objective C
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+
+    [[Marketo sharedInstance] handlePushNotification:userInfo];
+    
+}
+
+```
+###### Swift
+```Swift
+
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        Marketo.sharedInstance().handlePushNotification(userInfo)
+    }
+```
+#####4. Handle Local notification : To handle Local notifications received from Marketo SDK , put the below code in AppDelegate. It helps Marketo SDK to handle push notification while app is in foreground .
+
+```Objective-C
+// Objective C
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    [[Marketo sharedInstance] application:application didReceiveLocalNotification:notification];
+}
+
+```
+###### Swift
+```Swift
+func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        Marketo.sharedInstance().application(application, didReceiveLocalNotification: notification)
+}
+```
+#iOS Test Devices
+#####1. Select Project->Target->Info->URL Types
+#####2. Add identifier: ${PRODUCT_NAME}
+#####3. Set URL Schemes: mkto-<seckey>
+![header](ScreenShots/Deep_Link_Settings.png)
+
+
+#####5.Include application:openURL:sourceApplication:annotation: to AppDelegate.m
+###### Objective C
+```Objective-C
+
+- (BOOL)application:(UIApplication *)application
+           openURL:(NSURL *)url
+        sourceApplication:(NSString *)sourceApplication
+               annotation:(id)annotation {
+return [[Marketo sharedInstance] application:application
+                                     openURL:url
+                           sourceApplication:sourceApplication
+                                  annotation:annotation];
+}
+```
+###### Swift
+```Swift
+func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        Marketo.sharedInstance().application(app, openURL: url, sourceApplication: nil, annotation: nil)
+        return true
+ }
+
 ```
 
 
