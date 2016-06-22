@@ -24,24 +24,24 @@ v0.5.0
 #####3. Configure iOS Push access learn [here](http://developers.marketo.com/documentation/mobile/ "Marketo for Mobile").
 ##Install Framework via cocoapods 
 #####1. Install CocoaPods.
-``` 
+```Shell 
 sudo gem install cocoapods 
 ```
 #####2. Change directory to your project directory and create a Podfile with smart defaults.
-```
+```Shell
 pod init
 ```
 #####3. Open your Podfile.
-```
+```Shell
 open -a Xcode Podfile
 ```
 #####4. Add the following line to your Podfile.
-```
+```Shell
 pod 'Marketo-iOS-SDK'
 ```
 #####5. Save and close your Podfile.
 #####6. Download and install Marketo iOS SDK.
-```
+```Shell
 pod install
 ```
 #####7. Open workspace in Xcode. open App.xcworkspace
@@ -62,8 +62,9 @@ pod install
 import <Marketo/Marketo.h>
 ```
 #####2. Paste the following code inside the application:didFinishLaunchingWithOptions: function.
+
+###### Objective C
 ```Objective-C
-// Objective-C
 Marketo *sharedInstance = [Marketo sharedInstance];
 [sharedInstance initializeWithMunchkinID:@"munchkinAccountId" appSecret:@"secretKey" launchOptions:launchOptions];
 
@@ -79,8 +80,9 @@ sharedInstance.initializeWithMunchkinID("munchkinAccountId", appSecret: "secretK
 
  #Setup Push Notification
 #####1. Initiate Push notification Service : To enable push notification add below code .
+
+###### Objective C
 ```Objective-C
-// Objective-C
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
 if ([application respondsToSelector:@selector (registerUserNotificationSettings:)])
     {
@@ -100,40 +102,35 @@ if ([application respondsToSelector:@selector (registerUserNotificationSettings:
 ```
 ###### Swift
 ```Swift
-
   let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
   UIApplication.sharedApplication().registerUserNotificationSettings(settings)
   UIApplication.sharedApplication().registerForRemoteNotifications()
-        
 ```
 
 #####3. Handle push notification : To handle push notifications received from Marketo , put the below code in AppDelegate .
+
+###### Objective C
 ```Objective-C
-// Objective C
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-
     [[Marketo sharedInstance] handlePushNotification:userInfo];
-    
 }
 
 ```
 ###### Swift
 ```Swift
-
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         Marketo.sharedInstance().handlePushNotification(userInfo)
     }
 ```
 #####4. Handle Local notification : To handle Local notifications received from Marketo SDK , put the below code in AppDelegate. It helps Marketo SDK to handle push notification while app is in foreground .
 
+###### Objective C
 ```Objective-C
-// Objective C
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     [[Marketo sharedInstance] application:application didReceiveLocalNotification:notification];
 }
-
 ```
 ###### Swift
 ```Swift
@@ -149,9 +146,9 @@ func application(application: UIApplication, didReceiveLocalNotification notific
 
 
 #####5.Include application:openURL:sourceApplication:annotation: to AppDelegate.m
+
 ###### Objective C
 ```Objective-C
-
 - (BOOL)application:(UIApplication *)application
            openURL:(NSURL *)url
         sourceApplication:(NSString *)sourceApplication
