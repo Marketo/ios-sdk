@@ -178,4 +178,158 @@ func application(app: UIApplication, openURL url: NSURL, options: [String : AnyO
 
 ```
 
+#How to Create User Profiles on iOS
 
+#####1. Create User Profile
+
+#####You can create rich profiles by sending user fields as shown below.
+
+###### Objective-C
+```Objective-C
+MarketoLead *profile = [[MarketoLead alloc] init];
+
+// Get user profile from network and populate
+[profile setEmail:@"jd@makesomething.com"];
+[profile setFirstName:@"John"];
+[profile setLastName:@"Doe"];
+[profile setAddress:@"1234KingFishSt"];
+[profile setCity:@"SouthPadreIsland"];
+[profile setState:@"CA"];
+[profile setPostalCode:@"78596"];
+[profile setCountry:@"USA"];
+[profile setGender:@"male"];
+[profile setLeadSource:@"_facebook_ads"];
+[profile setBirthDay:@"01/01/1985"];
+[profile setFacebookId:@"facebookid"];
+[profile setFacebookProfileURL:@"facebook.com/profile"];
+[profile setFacebookProfilePicURL:@"faceboook.com/profile/pic"];
+[profile setLinkedInId:@"linkedinid"];
+[profile setTwitterId:@"twitterid"];
+```
+
+###### Swift
+
+```Swift
+ let profile =  MarketoLead()
+ // Get user profile from network and populate
+ profile.setEmail("jd@makesomething.com")
+ profile.setFirstName("John")
+ profile.setLastName("Doe")
+ profile.setAddress("1234KingFishSt")
+ profile.setCity("SouthPadreIsland")
+ profile.setState("CA")
+ profile.setPostalCode("78596")
+ profile.setCountry("USA")
+ profile.setGender("male")
+ profile.setLeadSource("_facebook_ads")
+ profile.setBirthDay("01/01/1985")
+ profile.setFacebookId("facebookid")
+ profile.setFacebookProfileURL("facebook.com/profile")
+ profile.setFacebookProfilePicURL("faceboook.com/profile/pic")
+ profile.setLinkedInId("linkedinid")
+ profile.setTwitterId("twitterid")
+ ```
+#####2. Add more Standard Fields
+
+###### Objective-C
+```Objective-C
+// Add other custom fields
+[profile setFieldName:@"mobilePhone"withValue:@"123.456.7890"];
+[profile setFieldName:@"numberOfEmployees"withValue:@"10"];
+[profile setFieldName:@"phone"withValue:@"123.456.7890"];
+```
+###### Swift
+
+```Swift
+ profile.setFieldName("mobilePhone" , withValue :"123.456.7890");
+ profile.setFieldName("numberOfEmployees", withValue: "10");
+ profile.setFieldName("phone", withValue:"123.456.7890");
+```
+
+#####3. Report User Profile
+
+###### Objective-C
+```Objective-C
+Marketo *sharedInstance = [Marketo sharedInstance];
+
+// This method will update user profile
+[sharedInstance associateLead:profile];
+```
+###### Swift
+
+```Swift
+let marketo = Marketo.sharedInstance()
+
+// This method will update user profile
+marketo.associateLead(profile)
+```
+#How to Send Custom Actions on iOS
+
+#####You can track user interaction by sending custom actions.
+
+#####1. Send custom action.
+
+###### Objective-C
+```Objective-C
+Marketo *sharedInstance = [Marketo sharedInstance];
+
+[sharedInstance reportAction:@"Login" withMetaData:nil];
+```
+
+#####2. Add custom action meta data.
+###### Objective-C
+```Objective-C
+MarketoActionMetaData *meta = [[MarketoActionMetaData alloc] init];
+[meta setType:@"Shopping"];
+[meta setDetails:@"RedShirt"];
+[meta setLength:20];
+[meta setMetric:30];
+
+[sharedInstance reportAction:@"Bought Shirt" withMetaData:meta];
+```
+###### Swift
+```Swift
+let meta = MarketoActionMetaData()
+meta.setType("Shopping");
+meta.setDetails("RedShirt");
+meta.setLength(20);
+meta.setMetric(30);
+
+sharedInstance.reportAction("Bought Shirt", withMetaData:meta);
+```
+
+#Advanced Security Access Mode
+
+#####The Marketo SDK exposes methods to set and remove the security signature. There is also a utility method to retrieve the device ID. The device ID should be passed along with the email, upon login, to the customer server for use in calculating the security signature. The SDK should the hit new endpoint, pointing to algorithm listed above, to retrieve the necessary fields to instantiate the signature object. Setting this signature in the SDK is a necessary step if the Security Access Mode has been enabled in Marketo Mobile Admin. learn more about Advanced Security Access Mode [here](http://developers.marketo.com/documentation/mobile/advanced-security-access-mode/ "Marketo for Mobile").
+
+###### Objective-C
+```Objective-C
+
+Marketo * sharedInstance =[Marketo sharedInstance];
+
+// set secure signature
+MKTSecuritySignature *signature =
+[[MKTSecuritySignature alloc] initWithAccessKey:<ACCESS_KEY> signature:<SIGNATURE_TOKEN> timestamp:<EXPIRY_TIMESTAMP> email:<EMAIL>];
+[sharedInstance setSecureSignature:signature];
+
+// remove signature
+[sharedInstance removeSecureSignature];
+
+// get device id
+[sharedInstance getDeviceId];
+```
+
+###### Swift
+```Swift
+let sharedInstance = Marketo.sharedInstance()
+        
+ // set secure signature
+let signature = MKTSecuritySignature(accessKey: <ACCESS_KEY>, signature: <SIGNATURE_TOKEN> , timestamp: <EXPIRY_TIMESTAMP>, email: <EMAIL>)
+sharedInstance.setSecureSignature(signature)
+        
+// remove signature
+[sharedInstance removeSecureSignature];
+
+// get device id
+sharedInstance.getDeviceId()
+```
