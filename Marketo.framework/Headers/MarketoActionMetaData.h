@@ -3,7 +3,7 @@
 //
 // Marketo Mobile Engagement framework
 //
-// Copyright (c) 2007-2015, Marketo, Inc. All rights reserved.
+// Copyright (c) 2007-2016, Marketo, Inc. All rights reserved.
 
 /*!
  * @header MarketoActionMetaData.h
