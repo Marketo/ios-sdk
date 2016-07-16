@@ -3,12 +3,11 @@
 //
 // Marketo Mobile Engagement framework
 //
-// Copyright (c) 2007-2015, Marketo, Inc. All rights reserved.
+// Copyright (c) 2007-2016, Marketo, Inc. All rights reserved.
 
 /*!
  * @header Marketo.h
  * @discussion The Marketo class is used to initialize the Marketo SDK.
- * @updated 2015-04-29
  */
 
 #import <Marketo/MKTSecuritySignature.h>
