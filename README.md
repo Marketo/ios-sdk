@@ -19,6 +19,10 @@ v0.5.1 - v0.5.3
 v0.5.0
 - Advanced secure access
 - Bitcode refactor
+- 
+# Issues
+
+If you encounter issues using or integrating this plugin, please file a support ticket at support.marketo.com
 
 #Marketo iOS SDK Installation Guide
 ##Prerequisites
