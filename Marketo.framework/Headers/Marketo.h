@@ -128,6 +128,12 @@
 - (NSString *)getDeviceId;
 
 /*!
+ * Force report all data to Server.
+ *
+ */
+- (void)reportAll;
+
+/*!
  * This object should be initialized via shared instance
  */
 - (id)init __attribute__ ((unavailable ("cannot use init for this class, use +(Marketo*)sharedInstance instead")));

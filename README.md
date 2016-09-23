@@ -1,10 +1,13 @@
-# Marketo Mobile SDK for iOS 0.6.3
+# Marketo Mobile SDK for iOS 0.6.4
 
 The Marketo Mobile SDK allows integration with Marketo Mobile Engagement (MME).  
 
 Installation instructions and more are [here](http://developers.marketo.com/documentation/mobile/ "Marketo for Mobile").
 
 Change Log
+
+v0.6.4
+- Exposed method [MarketoSDK reportAll] to immediately send events
 
 v0.6.3
 - Support for InApp display frequnecy once.
@@ -339,4 +342,3 @@ sharedInstance.setSecureSignature(signature)
 
 // get device id
 sharedInstance.getDeviceId()
-```
