@@ -14,7 +14,7 @@
 #import <Marketo/MarketoActionMetaData.h>
 #import <Marketo/MarketoLead.h>
 #import <UIKit/UIKit.h>
-
+#import <UserNotifications/UserNotifications.h>
 @interface Marketo : NSObject
 
 /*!
@@ -103,6 +103,15 @@
 */
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification;
 
+/*!
+ * Override System's userNotificationCenter method to Operate PushNotification
+ * @param center The UNUserNotificationCenter object supplied by the source app.
+ * @param response UNNotificationResponse object supplied by the source app.
+ * @param completionHandler object supplied by the source app.
+ */
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+didReceiveNotificationResponse:(UNNotificationResponse *)response
+         withCompletionHandler:(void(^)())completionHandler;
 /*!
  * Set security Signature for Authentication
  * @param token - The Security Token recived from client server
