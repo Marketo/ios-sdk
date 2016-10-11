@@ -1,10 +1,13 @@
-# Marketo Mobile SDK for iOS 0.6.4
+# Marketo Mobile SDK for iOS 0.7.0
 
 The Marketo Mobile SDK allows integration with Marketo Mobile Engagement (MME).  
 
 Installation instructions and more are [here](http://developers.marketo.com/documentation/mobile/ "Marketo for Mobile").
 
 Change Log
+
+v0.7.0
+- Using UNNotification to handle push received while app is in foreground with a local notificaiton
 
 v0.6.4
 - Exposed method [MarketoSDK reportAll] to immediately send events
@@ -104,20 +107,35 @@ sharedInstance.initializeWithMunchkinID("munchkinAccountId", appSecret: "secretK
 
 ###### Objective-C
 ```Objective-C
+
+// AppDelegate.h
+
+// import UNNotifcaiton class
+#import <UserNotifications/UserNotifications.h>
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate> {
+  ...
+}
+
+
+// App Delegate.m
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-if ([application respondsToSelector:@selector (registerUserNotificationSettings:)])
-    {
-#ifdef __IPHONE_8_0
-        UIUserNotificationSettings *settings =
-        [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
-        [application registerUserNotificationSettings:settings];
+#if XCODE_VERSION_GREATER_THAN_OR_EQUAL_TO_8
+    /// schedule localNotification, the delegate must be set before the application returns from applicationDidFinishLaunching:.
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert)
+                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                              if (!error) {
+                                  NSLog(@"request authorization succeeded!");
+                                  
+                              }
+                          }];
+#else
+    UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+    [application registerForRemoteNotificationTypes:myTypes];
 #endif
-    }
-    else
-    {
-        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-        [application registerForRemoteNotificationTypes:myTypes];
-    }
 }
 
 ```
@@ -136,6 +154,33 @@ if ([application respondsToSelector:@selector (registerUserNotificationSettings:
 {
     [[Marketo sharedInstance] handlePushNotification:userInfo];
 }
+
+#pragma mark - UNUserNotificationCenterDelegate Method
+
+#if XCODE_VERSION_GREATER_THAN_OR_EQUAL_TO_8
+
+// The method will be called on the delegate only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    NSLog(@"Notification is triggered");
+    
+    // You can either present alert, sound or increase badge while the app is in foreground too with iOS 10
+    // Must be called when finished, when you do not want foreground show, pass UNNotificationPresentationOptionNone to the completionHandler()
+    completionHandler(UNNotificationPresentationOptionAlert);
+    // completionHandler(UNNotificationPresentationOptionBadge);
+    // completionHandler(UNNotificationPresentationOptionSound);
+}
+
+// The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+didReceiveNotificationResponse:(UNNotificationResponse *)response
+         withCompletionHandler:(void(^)())completionHandler {
+    [[Marketo sharedInstance] userNotificationCenter:center didReceiveNotificationResponse:response withCompletionHandler:completionHandler];
+    //    completionHandler();
+}
+
+#endif
 
 ```
 ###### Swift
