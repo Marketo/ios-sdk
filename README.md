@@ -269,6 +269,30 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
 
 #####5.Include application:openURL:sourceApplication:annotation: to AppDelegate.m
 
+## iOS 10 Implementation
+###### Objective-C
+```Objective-C
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
+    NSString *sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey];
+    NSString *annotation = options[UIApplicationOpenURLOptionsAnnotationKey];
+    return [[Marketo sharedInstance] application:application
+                                         openURL:url
+                               sourceApplication:sourceApplication
+                                      annotation:annotation];
+}
+
+```
+###### Swift
+```Swift
+func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+    let sourceApplication: String? = options[UIApplicationOpenURLOptionsSourceApplicationKey] as? String
+    let sourceApplication: String? = options[UIApplicationOpenURLOptionsAnnotationKey] as? String
+    return Marketo.sharedInstance().application(app, openURL: url, sourceApplication: nil, annotation: nil)
+}
+
+```
+
+## Support for iOS 9 and below
 ###### Objective-C
 ```Objective-C
 - (BOOL)application:(UIApplication *)application
@@ -280,13 +304,13 @@ return [[Marketo sharedInstance] application:application
                            sourceApplication:sourceApplication
                                   annotation:annotation];
 }
+
 ```
 ###### Swift
 ```Swift
 func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
         return Marketo.sharedInstance().application(app, openURL: url, sourceApplication: nil, annotation: nil)
- }
-
+}
 ```
 
 #How to Create User Profiles on iOS
