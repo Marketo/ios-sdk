@@ -183,15 +183,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenter
                                   
                               }
                           }];
-#endif
-
-    if ([application respondsToSelector:@selector (registerUserNotificationSettings:)])
+    }
+    else if ([application respondsToSelector:@selector (registerUserNotificationSettings:)])
     {
-#ifdef __IPHONE_8_0
         UIUserNotificationSettings *settings =
         [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
         [application registerUserNotificationSettings:settings];
-#endif
     }
     else
     {
