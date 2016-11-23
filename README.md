@@ -7,7 +7,7 @@ Installation instructions and more are [here](http://developers.marketo.com/docu
 Change Log
 
 v0.7.1
-- Handling notification in loadingOptions in iOS 10 to track tap activity when app is closed.
+- Handling notification in loadingOptions for iOS 10 to track tap activity when app is closed.
 
 v0.7.0
 - Using UNNotification to handle push received while app is in foreground with a local notificaiton
@@ -183,7 +183,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenter
                                   
                               }
                           }];
-        [application registerForRemoteNotifications];
     }
     else if ([application respondsToSelector:@selector (registerUserNotificationSettings:)])
     {
@@ -196,6 +195,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenter
         UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
         [application registerForRemoteNotificationTypes:myTypes];
     }
+    [application registerForRemoteNotifications];
 
     // ...
 }
