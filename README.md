@@ -245,10 +245,9 @@ func application(_ application: UIApplication, didRegisterForRemoteNotifications
 ```
 ###### Swift
 ```Swift
-private func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-    Marketo.sharedInstance().handlePushNotification(userInfo)
-    completionHandler(UIBackgroundFetchResult.newData)
-}
+func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+      Marketo.sharedInstance().handlePushNotification(userInfo)
+  }
 ```
 
 #####5. Handle Local notification : To handle Local notifications received from Marketo SDK, put the below code in AppDelegate. It helps Marketo SDK to handle push notification while app is in foreground.
@@ -321,38 +320,29 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
 
 #####5.Include application:openURL:sourceApplication:annotation: to AppDelegate.m
 
-## iOS 10 Implementation
+## Handle Custom Url Type in AppDelegate
 ###### Objective-C
 ```Objective-C
 #ifdef __IPHONE_10_0
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
+-(BOOL)application:(UIApplication *)application 
+           openURL:(NSURL *)url 
+           options:(NSDictionary<NSString *,id> *)options{
     return [[Marketo sharedInstance] application:application
                                          openURL:url
                                sourceApplication:nil
                                       annotation:nil];
 }
-#endif
-```
-###### Swift
-```Swift
-private func application(app: UIApplication, openURL url: URL, options: [String : AnyObject]) -> Bool {
-    return Marketo.sharedInstance().application(app, open: url, sourceApplication: nil, annotation: nil)
-}
-```
-
-## Support for iOS 9 and below
-###### Objective-C
-```Objective-C
+#elif
 - (BOOL)application:(UIApplication *)application
-           openURL:(NSURL *)url
-        sourceApplication:(NSString *)sourceApplication
-               annotation:(id)annotation {
-return [[Marketo sharedInstance] application:application
-                                     openURL:url
-                           sourceApplication:sourceApplication
-                                  annotation:annotation];
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [[Marketo sharedInstance] application:application
+                                         openURL:url
+                               sourceApplication:sourceApplication
+                                      annotation:annotation];
 }
-
+#endif
 ```
 ###### Swift
 ```Swift
