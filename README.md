@@ -142,7 +142,7 @@ sharedInstance.initializeWithMunchkinID("munchkinAccountId", appSecret: "secretK
 
 
 #Enable Push Notifications in App with Marketo SDK
-#####1. Import following in AppDelegate.h .
+#####1. Import following in AppDelegate.h.
 
 ###### Objective-C
 ```Objective-C
@@ -164,7 +164,7 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenterDelegate
 ```
 
-#####3. Initiate Push notification Service : To enable push notification add below code .
+#####3. Initiate Push notification Service : To enable push notification add below code.
 
 ###### Objective-C
 ```Objective-C
@@ -199,11 +199,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenter
 
     // ...
 }
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    // Register the push token with Marketo
-    [[Marketo sharedInstance] registerPushDeviceToken:deviceToken];
-}
 ```
 ###### Swift
 ```Swift
@@ -226,14 +221,26 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     
     // ...
 }
+```
 
+#####4. Register Push Token
+
+###### Objective-C
+```Objective-C
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Register the push token with Marketo
+    [[Marketo sharedInstance] registerPushDeviceToken:deviceToken];
+}
+```
+###### Swift
+```Swift
 func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
     // Register the push token with Marketo
     Marketo.sharedInstance().registerPushDeviceToken(deviceToken)
 }
 ```
 
-#####4. Handle push notification : To handle push notifications received from Marketo , put the below code in AppDelegate .
+#####5. Handle push notification : To handle push notifications received from Marketo, put the following code in AppDelegate.
 
 ###### Objective-C
 ```Objective-C
@@ -241,16 +248,15 @@ func application(_ application: UIApplication, didRegisterForRemoteNotifications
 {
     [[Marketo sharedInstance] handlePushNotification:userInfo];
 }
-
 ```
 ###### Swift
 ```Swift
 func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-      Marketo.sharedInstance().handlePushNotification(userInfo)
-  }
+    Marketo.sharedInstance().handlePushNotification(userInfo)
+}
 ```
 
-#####5. Handle Local notification : To handle Local notifications received from Marketo SDK, put the below code in AppDelegate. It helps Marketo SDK to handle push notification while app is in foreground.
+#####6. Handle Local notification : To handle Local notifications received from Marketo SDK, put the following code in AppDelegate. It allows Marketo SDK to handle push notification while app is in foreground.
 
 ###### Objective-C
 ```Objective-C
@@ -266,7 +272,7 @@ func application(_ application: UIApplication, didReceive notification: UILocalN
 }
 ```
 
-#####6. Add the following method in AppDelegate.m. By using this method you can either present alert, sound or increase badge while the app is in foreground with iOS 10. You must call completionHandler of your choice in this Method.
+#####7. Add the following method in AppDelegate : By using this method you can either present alert, sound or increase badge while the app is in foreground with iOS 10. You must call completionHandler of your choice in this Method.
 
 ###### Objective-C
 ```Objective-C
@@ -291,7 +297,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent noti
     }
 ```
 
-#####7. Add following method to handle newly received Push notification to AppDelegate.m. The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
+#####8. Handle newly received Push notification in AppDelegate iOS 10 : The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
 
 ###### Objective-C
 ```Objective-C
@@ -339,8 +345,8 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
          annotation:(id)annotation {
     return [[Marketo sharedInstance] application:application
                                          openURL:url
-                               sourceApplication:sourceApplication
-                                      annotation:annotation];
+                               sourceApplication:nil
+                                      annotation:nil];
 }
 #endif
 ```
@@ -438,7 +444,7 @@ marketo.associateLead(profile)
 ```
 #How to Send Custom Actions on iOS
 
-#####You can track user interaction by sending custom actions.
+#####You can track user interactions by sending custom actions.
 
 #####1. Send custom action.
 
@@ -485,10 +491,8 @@ MKTSecuritySignature *signature =
 [[MKTSecuritySignature alloc] initWithAccessKey:<ACCESS_KEY> signature:<SIGNATURE_TOKEN> timestamp:<EXPIRY_TIMESTAMP> email:<EMAIL>];
 [sharedInstance setSecureSignature:signature];
 
-// remove signature
 [sharedInstance removeSecureSignature];
 
-// get device id
 [sharedInstance getDeviceId];
 ```
 
@@ -500,8 +504,6 @@ let sharedInstance = Marketo.sharedInstance()
 let signature = MKTSecuritySignature(accessKey: <ACCESS_KEY>, signature: <SIGNATURE_TOKEN> , timestamp: <EXPIRY_TIMESTAMP>, email: <EMAIL>)
 sharedInstance.setSecureSignature(signature)
         
-// remove signature
 [sharedInstance removeSecureSignature];
 
-// get device id
 sharedInstance.getDeviceId()
