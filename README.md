@@ -1,10 +1,13 @@
-# Marketo Mobile SDK for iOS 0.7.0
+# Marketo Mobile SDK for iOS 0.7.1
 
 The Marketo Mobile SDK allows integration with Marketo Mobile Engagement (MME).  
 
 Installation instructions and more are [here](http://developers.marketo.com/documentation/mobile/ "Marketo for Mobile").
 
 Change Log
+
+v0.7.1
+- Handling notification in loadingOptions for iOS 10 to track tap activity when app is closed.
 
 v0.7.0
 - Using UNNotification to handle push received while app is in foreground with a local notificaiton
@@ -102,81 +105,44 @@ sharedInstance.initializeWithMunchkinID("munchkinAccountId", appSecret: "secretK
 #####3. Replace munkinAccountId and secretKey above using your Munchkin Account Id and Secret Key which are found in the Marketo Admin Mobile Apps section.
 ![header](ScreenShots/amobile2.png)
 
-#Setup Push Notification
-#####1. Initiate Push notification Service : To enable push notification add below code .
+#Configure Push Notifications on Apple Developer Account
+#####1. Log into the Apple Developer Member Center.
 
-###### Objective-C
-```Objective-C
+#####2. Click on “Certificates, Identifiers & Profiles”.
 
-// AppDelegate.h
+#####3. Click on “Certificates->All” folder underneath “iOS, tvOS, watchOS”.
 
-// import UNNotifcaiton class
-#import <UserNotifications/UserNotifications.h>
+#####4. Select the “+” the button on the top right of the screen.
+![header](ScreenShots/ios-cert.png)
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate> {
-  ...
-}
+#####5. Enable “Apple Push Notification service SSL (Sandbox & Production)” checkbox, and click “Continue”.
+![header](ScreenShots/add_cert.png)
+
+#####6. Select the application identifier that you are using the build the app.
+![header](ScreenShots/select_app.png)
+
+#####7. Create and upload CSR to generate the push certificate.
+![header](ScreenShots/upload_csr.png)
+
+#####8. Download certificate to local computer and double-click to install.
+![header](ScreenShots/download_cert.png)
+
+#####9. Open “Keychain Access”, right click on the certificate, and export 2 items into .p12 file.
+![header](ScreenShots/key_chain.png)
+
+#####10. Upload this file through Marketo Admin Console to configure notifications.
+![header](ScreenShots/certificate-upload.png)
+
+#####11. Update app provisioning profiles.
 
 
-// App Delegate.m
+#Enable Push Notifications in xCode
+#####1. Turn on push notification capability in xCode project.
+![header](ScreenShots/notification_capability.png)
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    if ([application respondsToSelector:@selector (registerUserNotificationSettings:)])
-    {
-#ifdef __IPHONE_8_0
-        UIUserNotificationSettings *settings =
-        [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
-        [application registerUserNotificationSettings:settings];
-#endif
-    }
-    else
-    {
-        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-        [application registerForRemoteNotificationTypes:myTypes];
-    }
-}
 
-```
-###### Swift
-```Swift
-  let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
-  UIApplication.sharedApplication().registerUserNotificationSettings(settings)
-  UIApplication.sharedApplication().registerForRemoteNotifications()
-```
-
-#####3. Handle push notification : To handle push notifications received from Marketo , put the below code in AppDelegate .
-
-###### Objective-C
-```Objective-C
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    [[Marketo sharedInstance] handlePushNotification:userInfo];
-}
-```
-###### Swift
-```Swift
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        Marketo.sharedInstance().handlePushNotification(userInfo)
-    }
-```
-#####4. Handle Local notification : To handle Local notifications received from Marketo SDK , put the below code in AppDelegate. It helps Marketo SDK to handle push notification while app is in foreground .
-
-###### Objective-C
-```Objective-C
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
-{
-    [[Marketo sharedInstance] application:application didReceiveLocalNotification:notification];
-}
-```
-###### Swift
-```Swift
-func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        Marketo.sharedInstance().application(application, didReceiveLocalNotification: notification)
-}
-```
-
-#Local Notifications iOS 10
-#####1. Import following in AppDelegate.h .
+#Enable Push Notifications in App with Marketo SDK
+#####1. Import following in AppDelegate.h.
 
 ###### Objective-C
 ```Objective-C
@@ -198,33 +164,119 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenterDelegate
 ```
 
-#####3. Add below code in didFinishLaunchingWithOptions to acquire permission to post Notifications.
+#####3. Initiate Push notification Service : To enable push notification add below code.
 
 ###### Objective-C
 ```Objective-C
-UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    center.delegate = self;
-[center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert)
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    
+    // ...
+
+    if ([UNUserNotificationCenter class])
+    {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert)
                           completionHandler:^(BOOL granted, NSError * _Nullable error) {
                               if (!error) {
                                   NSLog(@"request authorization succeeded!");
                                   
                               }
                           }];
+    }
+    else if ([application respondsToSelector:@selector (registerUserNotificationSettings:)])
+    {
+        UIUserNotificationSettings *settings =
+        [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }
+    else
+    {
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+        [application registerForRemoteNotificationTypes:myTypes];
+    }
+    [application registerForRemoteNotifications];
+
+    // ...
+}
 ```
 ###### Swift
 ```Swift
-let center = UNUserNotificationCenter.current()
-center.delegate = self
-center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-    print("request authorization succeeded!")
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    
+    // ...
+    
+    if #available(iOS 10, *) {
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self;
+        center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
+            // Enable or disable features based on authorization.
+        }
+    }
+    else
+    {
+        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
+    }
+    application.registerForRemoteNotifications()
+    
+    // ...
 }
 ```
 
-#####4. Add the following method in AppDelegate.m. By using this method you can either present alert, sound or increase badge while the app is in foreground with iOS 10. You must call completionHandler of your choice in this Method.
+#####4. Register Push Token
 
 ###### Objective-C
 ```Objective-C
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Register the push token with Marketo
+    [[Marketo sharedInstance] registerPushDeviceToken:deviceToken];
+}
+```
+###### Swift
+```Swift
+func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    // Register the push token with Marketo
+    Marketo.sharedInstance().registerPushDeviceToken(deviceToken)
+}
+```
+
+#####5. Handle push notification : To handle push notifications received from Marketo, put the following code in AppDelegate.
+
+###### Objective-C
+```Objective-C
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [[Marketo sharedInstance] handlePushNotification:userInfo];
+}
+```
+###### Swift
+```Swift
+func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+    Marketo.sharedInstance().handlePushNotification(userInfo)
+}
+```
+
+#####6. Handle Local notification : To handle Local notifications received from Marketo SDK, put the following code in AppDelegate. It allows Marketo SDK to handle push notification while app is in foreground.
+
+###### Objective-C
+```Objective-C
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    [[Marketo sharedInstance] application:application didReceiveLocalNotification:notification];
+}
+```
+###### Swift
+```Swift
+func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+    Marketo.sharedInstance().application(application, didReceive: notification)
+}
+```
+
+#####7. Add the following method in AppDelegate : By using this method you can either present alert, sound or increase badge while the app is in foreground with iOS 10. You must call completionHandler of your choice in this Method.
+
+###### Objective-C
+```Objective-C
+#ifdef __IPHONE_10_0
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
        willPresentNotification:(UNNotification *)notification
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
@@ -233,9 +285,11 @@ center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
     // completionHandler(UNNotificationPresentationOptionBadge); OR
     // completionHandler(UNNotificationPresentationOptionSound);
 }
+#endif
 ```
 ###### Swift
 ```Swift
+@available(iOS 10.0, *)
 func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(.alert)  // OR
        // completionHandler(.badge) OR
@@ -243,21 +297,24 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent noti
     }
 ```
 
-#####5. Add following method to handle newly received Push notification to AppDelegate.m. The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
+#####8. Handle newly received Push notification in AppDelegate iOS 10 : The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
 
 ###### Objective-C
 ```Objective-C
+#ifdef __IPHONE_10_0
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
 didReceiveNotificationResponse:(UNNotificationResponse *)response
          withCompletionHandler:(void(^)())completionHandler {
     [[Marketo sharedInstance] userNotificationCenter:center didReceiveNotificationResponse:response withCompletionHandler:completionHandler];
 }
+#endif
 ```
 ###### Swift
 ```Swift
+@available(iOS 10.0, *)
 func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        Marketo.sharedInstance().userNotificationCenter(center, didReceive: response, withCompletionHandler: completionHandler)
-    }
+    Marketo.sharedInstance().userNotificationCenter(center, didReceive: response, withCompletionHandler: completionHandler)
+}
 ```
 
 #iOS Test Devices
@@ -269,47 +326,34 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
 
 #####5.Include application:openURL:sourceApplication:annotation: to AppDelegate.m
 
-## iOS 10 Implementation
+## Handle Custom Url Type in AppDelegate
 ###### Objective-C
 ```Objective-C
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
-    NSString *sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey];
-    NSString *annotation = options[UIApplicationOpenURLOptionsAnnotationKey];
+#ifdef __IPHONE_10_0
+-(BOOL)application:(UIApplication *)application 
+           openURL:(NSURL *)url 
+           options:(NSDictionary<NSString *,id> *)options{
     return [[Marketo sharedInstance] application:application
                                          openURL:url
-                               sourceApplication:sourceApplication
-                                      annotation:annotation];
+                               sourceApplication:nil
+                                      annotation:nil];
 }
-
-```
-###### Swift
-```Swift
-func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-    let sourceApplication: String? = options[UIApplicationOpenURLOptionsSourceApplicationKey] as? String
-    let sourceApplication: String? = options[UIApplicationOpenURLOptionsAnnotationKey] as? String
-    return Marketo.sharedInstance().application(app, openURL: url, sourceApplication: nil, annotation: nil)
-}
-
-```
-
-## Support for iOS 9 and below
-###### Objective-C
-```Objective-C
+#elif
 - (BOOL)application:(UIApplication *)application
-           openURL:(NSURL *)url
-        sourceApplication:(NSString *)sourceApplication
-               annotation:(id)annotation {
-return [[Marketo sharedInstance] application:application
-                                     openURL:url
-                           sourceApplication:sourceApplication
-                                  annotation:annotation];
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [[Marketo sharedInstance] application:application
+                                         openURL:url
+                               sourceApplication:nil
+                                      annotation:nil];
 }
-
+#endif
 ```
 ###### Swift
 ```Swift
-func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        return Marketo.sharedInstance().application(app, openURL: url, sourceApplication: nil, annotation: nil)
+private func application(app: UIApplication, openURL url: URL, options: [String : AnyObject]) -> Bool {
+    return Marketo.sharedInstance().application(app, open: url, sourceApplication: nil, annotation: nil)
 }
 ```
 
@@ -400,7 +444,7 @@ marketo.associateLead(profile)
 ```
 #How to Send Custom Actions on iOS
 
-#####You can track user interaction by sending custom actions.
+#####You can track user interactions by sending custom actions.
 
 #####1. Send custom action.
 
@@ -447,10 +491,8 @@ MKTSecuritySignature *signature =
 [[MKTSecuritySignature alloc] initWithAccessKey:<ACCESS_KEY> signature:<SIGNATURE_TOKEN> timestamp:<EXPIRY_TIMESTAMP> email:<EMAIL>];
 [sharedInstance setSecureSignature:signature];
 
-// remove signature
 [sharedInstance removeSecureSignature];
 
-// get device id
 [sharedInstance getDeviceId];
 ```
 
@@ -462,8 +504,6 @@ let sharedInstance = Marketo.sharedInstance()
 let signature = MKTSecuritySignature(accessKey: <ACCESS_KEY>, signature: <SIGNATURE_TOKEN> , timestamp: <EXPIRY_TIMESTAMP>, email: <EMAIL>)
 sharedInstance.setSecureSignature(signature)
         
-// remove signature
 [sharedInstance removeSecureSignature];
 
-// get device id
 sharedInstance.getDeviceId()
