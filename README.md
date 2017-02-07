@@ -283,8 +283,8 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
 ```
 ###### Swift
 ```Swift
-func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
-    Marketo.sharedInstance().application(application, didReceive: notification)
+func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+    return Marketo.sharedInstance().application(application, open: url, sourceApplication: nil, annotation: nil)
 }
 ```
 
