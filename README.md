@@ -354,7 +354,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
                                sourceApplication:nil
                                       annotation:nil];
 }
-#elif
+#endif
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
@@ -364,7 +364,6 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
                                sourceApplication:nil
                                       annotation:nil];
 }
-#endif
 ```
 ###### Swift
 ```Swift
