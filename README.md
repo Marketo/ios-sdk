@@ -7,6 +7,7 @@ Installation instructions and more are [here](http://developers.marketo.com/docu
 Change Log
 
 v0.7.4 (Upcoming)
+- Deeplink in push notification now opens after forcefully closing the app
 - Exposed removeDevicePushToken() method
 
 v0.7.1 (November 24, 2016)
