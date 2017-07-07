@@ -70,6 +70,12 @@
 - (void)registerPushDeviceToken:(NSData *)deviceToken;
 
 /*!
+ * This function unregisters a Push Token.
+ * If a Push Token is already registered, call unregisterPushDeviceToken to unregister token.
+ */
+- (void)unregisterPushDeviceToken;
+
+/*!
  * This tracks the push notification by sending an activity.
  * @param userInfo Dictionary containing push payload
  */
