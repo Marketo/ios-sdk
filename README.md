@@ -1,4 +1,4 @@
-# Marketo Mobile SDK for iOS 0.7.4
+# Marketo Mobile SDK for iOS 0.7.5
 
 The Marketo Mobile SDK allows integration with Marketo Mobile Engagement (MME).  
 
@@ -6,8 +6,10 @@ Installation instructions and more are [here](http://developers.marketo.com/docu
 
 Change Log
 
+v0.7.5 (September 8, 2017)
+- Fixed build errors and warnings in xCode 9
+
 v0.7.4 (July 7, 2017)
-- Deeplink in push notification now opens after forcefully closing the app
 - Exposed removeDevicePushToken() method
 
 v0.7.1 (November 24, 2016)
@@ -20,7 +22,7 @@ v0.6.4 (August 23, 2016)
 - Exposed method [MarketoSDK reportAll] to immediately send events
 
 v0.6.3 (July 15, 2016)
-- Support for InApp display frequnecy once.
+- Support for InApp display frequency once.
 
 v0.6.0 (June, 11 2016)
 - InApp Notifications
@@ -33,11 +35,13 @@ v0.5.0
 - Advanced secure access
 - Bitcode refactor
 - 
+
 # Issues
 
 If you encounter issues using or integrating this plugin, please file a support ticket at support.marketo.com
 
 # Marketo iOS SDK Installation Guide
+
 ## Prerequisites
 
 ##### 1. Register an application in Marketo Admin portal, get your application secret key and munchkin id.
@@ -48,12 +52,15 @@ If you encounter issues using or integrating this plugin, please file a support 
 
 ## Install Framework via cocoapods 
 
-## Expose removeDevicePushToken() method###1. Install CocoaPods.
+## Expose removeDevicePushToken() method
+
+#####1. Install CocoaPods.
 
 ```Shell 
 sudo gem install cocoapods 
 ```
-##### 2  Change directory to your project directory and create a Podfile with smart defaults.
+
+##### 2. Change directory to your project directory and create a Podfile with smart defaults.
 
 ```Shell
 pod init
@@ -70,6 +77,7 @@ open -a Xcode Podfile
 ```Shell
 pod 'Marketo-iOS-SDK'
 ```
+
 ##### 5. Save and close your Podfile.
 
 ##### 6. Download and install Marketo iOS SDK.
@@ -81,21 +89,19 @@ pod install
 ##### 7. Open workspace in Xcode. open App.xcworkspace
 
 # Setup Swift Bridging Header  
-
-##### 1. Go to File > New > File and Select Header File:
-
+#####1. Go to File > New > File and Select Header File:
 ![header](ScreenShots/Xcode-Choose-Header-File.png)
 
-##### 2. Name the file <ProjectName>-Bridging-Header  
+##### 2. Name the file <ProjectName>-Bridging-Header
 
-##### 3. Go to Project->Target->Build Phases->Swift Compiler - Code Generation-> Add the following path to Objective-Bridging   
+##### 3. Go to Project->Target->Build Phases->Swift Compiler - Code Generation-> Add the following path to Objective-Bridging
 
-##### Header: $(PODS_ROOT)/<ProjectName>-Bridging-Header.h
+#####Header: $(PODS_ROOT)/<ProjectName>-Bridging-Header.h
 ![header](ScreenShots/build-phases.png)
 
-# SDK Initialization 
+#SDK Initialization 
 
-##### Before you can use the Marketo iOS SDK, you must initialize it with your Munchkin Account Id and App Secret Key.  You can find each of these in the Marketo Admin area underneath Mobile Apps.  
+##### Before you can use the Marketo iOS SDK, you must initialize it with your Munchkin Account Id and App Secret Key.  You can find each of these in the Marketo Admin area underneath Mobile Apps.
 
 ##### 1. Open your AppDelegate.m or Bridging file (Swift) and import the Marketo.h header file.
 
@@ -103,7 +109,7 @@ pod install
 import <Marketo/Marketo.h>
 ```
 
-##### 2. Paste the following code inside the application:didFinishLaunchingWithOptions: function.  
+##### 2. Paste the following code inside the application:didFinishLaunchingWithOptions: function.
 
 ###### Objective-C
 
@@ -113,95 +119,95 @@ Marketo *sharedInstance = [Marketo sharedInstance];
 
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
 let sharedInstance: Marketo = Marketo.sharedInstance()
 sharedInstance.initializeWithMunchkinID("munchkinAccountId", appSecret: "secretKey", launchOptions: launchOptions)
 ```
 
-##### 3. Replace munkinAccountId and secretKey above using your Munchkin Account Id and Secret Key which are found in the Marketo Admin Mobile Apps section.  
-
+##### 3. Replace munkinAccountId and secretKey above using your Munchkin Account Id and Secret Key which are found in the Marketo Admin Mobile Apps section.
 ![header](ScreenShots/amobile2.png)
 
-# Configure Push Notifications on Apple Developer Account  
+#Configure Push Notifications on Apple Developer Account
 
-##### 1. Log into the Apple Developer Member Center.  
+##### 1. Log into the Apple Developer Member Center.
 
-##### 2. Click on “Certificates, Identifiers & Profiles”.  
+##### 2. Click on Certificates, Identifiers & Profiles.
 
-##### 3. Click on “Certificates->All” folder underneath “iOS, tvOS, watchOS”.  
+##### 3. Click on Certificates->All folder underneath iOS, tvOS, watchOS.
 
-##### 4. Select the “+” the button on the top right of the screen.  
+##### 4. Select the + the button on the top right of the screen.
 
 ![header](ScreenShots/ios-cert.png)
 
-##### 5. Enable “Apple Push Notification service SSL (Sandbox & Production)” checkbox, and click “Continue”.  
+##### 5. Enable Apple Push Notification service SSL (Sandbox & Production) checkbox, and click Continue.
 
 ![header](ScreenShots/add_cert.png)
 
-##### 6. Select the application identifier that you are using the build the app.  
+##### 6. Select the application identifier that you are using the build the app.
 
 ![header](ScreenShots/select_app.png)
 
-##### 7. Create and upload CSR to generate the push certificate.  
+##### 7. Create and upload CSR to generate the push certificate.
 
 ![header](ScreenShots/upload_csr.png)
 
-##### 8. Download certificate to local computer and double-click to install.  
+##### 8. Download certificate to local computer and double-click to install.
 
 ![header](ScreenShots/download_cert.png)
 
-##### 9. Open “Keychain Access”, right click on the certificate, and export 2 items into .p12 file.  
+##### 9. Open Keychain Access, right click on the certificate, and export 2 items into .p12 file.
 
 ![header](ScreenShots/key_chain.png)
 
-##### 10. Upload this file through Marketo Admin Console to configure notifications.  
+##### 10. Upload this file through Marketo Admin Console to configure notifications.
 
 ![header](ScreenShots/certificate-upload.png)
 
 ##### 11. Update app provisioning profiles.
 
 
-# Enable Push Notifications in xCode  
-##### 1. Turn on push notification capability in xCode project.  
+#Enable Push Notifications in xCode
+
+##### 1. Turn on push notification capability in xCode project.
 
 ![header](ScreenShots/notification_capability.png)
 
 
-# Enable Push Notifications in App with Marketo SDK  
+#Enable Push Notifications in App with Marketo SDK
 
-##### 1. Import following in AppDelegate.h.  
+##### 1. Import following in AppDelegate.h.
 
-###### Objective-C  
+###### Objective-C
 
 ```Objective-C
 #import <UserNotifications/UserNotifications.h>
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
 import UserNotifications
 ```
 
-##### 2. Add UNUserNotificationCenterDelegate to AppDelegate as shown below.  
+##### 2. Add UNUserNotificationCenterDelegate to AppDelegate as shown below.
 
-###### Objective-C  
+###### Objective-C
 
 ```Objective-C
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate>
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
 class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenterDelegate
 ```
 
-##### 3. Initiate Push notification Service : To enable push notification add below code.  
+##### 3. Initiate Push notification Service : To enable push notification add below code.
 
-###### Objective-C  
+###### Objective-C
 
 ```Objective-C
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
@@ -236,7 +242,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenter
     // ...
 }
 ```
-###### Swift  
+
+###### Swift
 
 ```Swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -260,9 +267,9 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 }
 ```
 
-##### 4. Register Push Token  
+##### 4. Register Push Token
 
-###### Objective-C  
+###### Objective-C
 
 ```Objective-C
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -271,7 +278,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 }
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
 func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -280,24 +287,21 @@ func application(_ application: UIApplication, didRegisterForRemoteNotifications
 }
 ```
 
-###### The token can also be unregistered when user logs out.  
+###### The token can also be unregistered
 
-###### Objective-C  
+###### Objective-C
 
 ```Objective-C
 [[Marketo sharedInstance] unregisterPushDeviceToken];
-
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
 Marketo.sharedInstance().unregisterPushDeviceToken
 ```
 
-###### **_Note_** To re-register the push token extract the code from step 3 into an AppDelegate method and call form the ViewController login method.  
-
-##### 5. Handle push notification : To handle push notifications received from Marketo, put the following code in AppDelegate.  
+##### 5. Handle push notification : To handle push notifications received from Marketo, put the following code in AppDelegate.
 
 ###### Objective-C
 
@@ -308,7 +312,7 @@ Marketo.sharedInstance().unregisterPushDeviceToken
 }
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
 func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
@@ -316,7 +320,7 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
 }
 ```
 
-##### 6. Handle Local notification : To handle Local notifications received from Marketo SDK, put the following code in AppDelegate. It allows Marketo SDK to handle push notification while app is in foreground.  
+##### 6. Handle Local notification : To handle Local notifications received from Marketo SDK, put the following code in AppDelegate. It allows Marketo SDK to handle push notification while app is in foreground.
 
 ###### Objective-C
 
@@ -327,17 +331,17 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
 }
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
-func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-    return Marketo.sharedInstance().application(application, open: url, sourceApplication: nil, annotation: nil)
+func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+    Marketo.sharedInstance().application(application, didReceive: notification)
 }
 ```
 
-##### 7. Add the following method in AppDelegate : By using this method you can either present alert, sound or increase badge while the app is in foreground with iOS 10. You must call completionHandler of your choice in this Method.  
+##### 7. Add the following method in AppDelegate : By using this method you can either present alert, sound or increase badge while the app is in foreground with iOS 10. You must call completionHandler of your choice in this Method.
 
-###### Objective-C  
+###### Objective-C
 
 ```Objective-C
 #ifdef __IPHONE_10_0
@@ -352,7 +356,7 @@ func application(_ application: UIApplication, open url: URL, sourceApplication:
 #endif
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
 @available(iOS 10.0, *)
@@ -363,9 +367,9 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent noti
     }
 ```
 
-##### 8. Handle newly received Push notification in AppDelegate iOS 10 : The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.  
+##### 8. Handle newly received Push notification in AppDelegate iOS 10 : The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
 
-###### Objective-C  
+###### Objective-C
 
 ```Objective-C
 #ifdef __IPHONE_10_0
@@ -377,7 +381,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 #endif
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
 @available(iOS 10.0, *)
@@ -386,19 +390,21 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
 }
 ```
 
-#iOS Test Devices. 
+#iOS Test Devices
 
-##### 1. Select Project->Target->Info->URL Types  
-##### 2. Add identifier: ${PRODUCT_NAME}  
-##### 3. Set URL Schemes: mkto-<seckey>  
+##### 1. Select Project->Target->Info->URL Types
+
+##### 2. Add identifier: ${PRODUCT_NAME}
+
+##### 3. Set URL Schemes: mkto-<seckey>
+
 ![header](ScreenShots/Deep_Link_Settings.png)
 
+##### 5.Include application:openURL:sourceApplication:annotation: to AppDelegate.m
 
-##### 5.Include application:openURL:sourceApplication:annotation: to AppDelegate.m  
+## Handle Custom Url Type in AppDelegate
 
-## Handle Custom Url Type in AppDelegate  
-
-###### Objective-C  
+###### Objective-C
 
 ```Objective-C
 #ifdef __IPHONE_10_0
@@ -410,7 +416,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
                                sourceApplication:nil
                                       annotation:nil];
 }
-#endif
+#elif
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
@@ -420,9 +426,10 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
                                sourceApplication:nil
                                       annotation:nil];
 }
+#endif
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
 private func application(app: UIApplication, openURL url: URL, options: [String : AnyObject]) -> Bool {
@@ -430,13 +437,13 @@ private func application(app: UIApplication, openURL url: URL, options: [String 
 }
 ```
 
-# How to Create User Profiles on iOS  
+#How to Create User Profiles on iOS
 
-##### 1. Create User Profile  
+##### 1. Create User Profile
 
-##### You can create rich profiles by sending user fields as shown below.  
+##### You can create rich profiles by sending user fields as shown below.
 
-###### Objective-C  
+###### Objective-C
 
 ```Objective-C
 MarketoLead *profile = [[MarketoLead alloc] init];
@@ -460,7 +467,7 @@ MarketoLead *profile = [[MarketoLead alloc] init];
 [profile setTwitterId:@"twitterid"];
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
  let profile =  MarketoLead()
@@ -482,9 +489,10 @@ MarketoLead *profile = [[MarketoLead alloc] init];
  profile.setLinkedInId("linkedinid")
  profile.setTwitterId("twitterid")
  ```
-##### 2. Add more Standard Fields  
 
-###### Objective-C  
+##### 2. Add more Standard Fields
+
+###### Objective-C
 
 ```Objective-C
 // Add other custom fields
@@ -493,7 +501,7 @@ MarketoLead *profile = [[MarketoLead alloc] init];
 [profile setFieldName:@"phone"withValue:@"123.456.7890"];
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
  profile.setFieldName("mobilePhone" , withValue :"123.456.7890");
@@ -501,9 +509,9 @@ MarketoLead *profile = [[MarketoLead alloc] init];
  profile.setFieldName("phone", withValue:"123.456.7890");
 ```
 
-##### 3. Report User Profile  
+##### 3. Report User Profile
 
-###### Objective-C  
+###### Objective-C
 
 ```Objective-C
 Marketo *sharedInstance = [Marketo sharedInstance];
@@ -512,7 +520,7 @@ Marketo *sharedInstance = [Marketo sharedInstance];
 [sharedInstance associateLead:profile];
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
 let marketo = Marketo.sharedInstance()
@@ -521,11 +529,11 @@ let marketo = Marketo.sharedInstance()
 marketo.associateLead(profile)
 ```
 
-# How to Send Custom Actions on iOS  
+#How to Send Custom Actions on iOS
 
-##### You can track user interactions by sending custom actions.  
+##### You can track user interactions by sending custom actions.
 
-##### 1. Send custom action.  
+##### 1. Send custom action.
 
 ###### Objective-C
 
@@ -535,9 +543,9 @@ Marketo *sharedInstance = [Marketo sharedInstance];
 [sharedInstance reportAction:@"Login" withMetaData:nil];
 ```
 
-##### 2. Add custom action meta data.  
+##### 2. Add custom action meta data.
 
-###### Objective-C  
+###### Objective-C
 
 ```Objective-C
 MarketoActionMetaData *meta = [[MarketoActionMetaData alloc] init];
@@ -549,7 +557,7 @@ MarketoActionMetaData *meta = [[MarketoActionMetaData alloc] init];
 [sharedInstance reportAction:@"Bought Shirt" withMetaData:meta];
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
 let meta = MarketoActionMetaData()
@@ -565,7 +573,8 @@ sharedInstance.reportAction("Bought Shirt", withMetaData:meta);
 
 ##### The Marketo SDK exposes methods to set and remove the security signature. There is also a utility method to retrieve the device ID. The device ID should be passed along with the email, upon login, to the customer server for use in calculating the security signature. The SDK should the hit new endpoint, pointing to algorithm listed above, to retrieve the necessary fields to instantiate the signature object. Setting this signature in the SDK is a necessary step if the Security Access Mode has been enabled in Marketo Mobile Admin. learn more about Advanced Security Access Mode [here](http://developers.marketo.com/documentation/mobile/advanced-security-access-mode/ "Marketo for Mobile").
 
-###### Objective-C  
+###### Objective-C
+
 ```Objective-C
 
 Marketo * sharedInstance =[Marketo sharedInstance];
@@ -580,7 +589,7 @@ MKTSecuritySignature *signature =
 [sharedInstance getDeviceId];
 ```
 
-###### Swift  
+###### Swift
 
 ```Swift
 let sharedInstance = Marketo.sharedInstance()
