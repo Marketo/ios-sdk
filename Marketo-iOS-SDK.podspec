@@ -20,11 +20,11 @@ Copyright 2015 Marketo, Inc. All rights reserved.
 LICENSE
 }
 
-s.author              = { "Rudy Gomez" => "rgomez@marketo.com" }
-s.source              = { :git => "https://github.com/Marketo/ios-sdk.git", :tag => s.version }
+s.author              = { "Sanniv Khare" => "skhare@marketo.com" }
+s.source              = { :git => "https://github.com/Marketo/ios-sdk.git", :tag => s.version, :branch => 'vespa-preprod' }
 s.source_files		  = 'Marketo.framework/**/*.h'
 
-s.platform            = :ios, '6.0'
+s.platform            = :ios, '8.1'
 s.requires_arc        = false
 
 s.preserve_paths      = 'Marketo.framework'

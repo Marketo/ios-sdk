@@ -6,7 +6,7 @@ Installation instructions and more are [here](http://developers.marketo.com/docu
 
 Change Log
 
-v0.7.6 (June 28, 2018)
+v0.7.6 (September 4, 2018)
 
 - Fixed tap gesture error at In-app
 
