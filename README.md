@@ -34,7 +34,7 @@ v0.5.1 - v0.5.3
 v0.5.0
 - Advanced secure access
 - Bitcode refactor
-- 
+-
 
 # Issues
 
@@ -50,14 +50,14 @@ If you encounter issues using or integrating this plugin, please file a support 
 
 ##### 3. Configure iOS Push access learn [here](http://developers.marketo.com/documentation/mobile/ "Marketo for Mobile").
 
-## Install Framework via cocoapods 
+## Install Framework via cocoapods
 
 ## Expose removeDevicePushToken() method
 
-#####1. Install CocoaPods.
+##### 1. Install CocoaPods.
 
-```Shell 
-sudo gem install cocoapods 
+```Shell
+sudo gem install cocoapods
 ```
 
 ##### 2. Change directory to your project directory and create a Podfile with smart defaults.
@@ -99,7 +99,7 @@ pod install
 #####Header: $(PODS_ROOT)/<ProjectName>-Bridging-Header.h
 ![header](ScreenShots/build-phases.png)
 
-#SDK Initialization 
+#SDK Initialization
 
 ##### Before you can use the Marketo iOS SDK, you must initialize it with your Munchkin Account Id and App Secret Key.  You can find each of these in the Marketo Admin area underneath Mobile Apps.
 
@@ -211,7 +211,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenter
 
 ```Objective-C
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    
+
     // ...
 
     if ([UNUserNotificationCenter class])
@@ -222,7 +222,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenter
                           completionHandler:^(BOOL granted, NSError * _Nullable error) {
                               if (!error) {
                                   NSLog(@"request authorization succeeded!");
-                                  
+
                               }
                           }];
     }
@@ -247,9 +247,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenter
 
 ```Swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    
+
     // ...
-    
+
     if #available(iOS 10, *) {
         let center = UNUserNotificationCenter.current()
         center.delegate = self;
@@ -262,7 +262,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
         application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
     }
     application.registerForRemoteNotifications()
-    
+
     // ...
 }
 ```
@@ -408,8 +408,8 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
 
 ```Objective-C
 #ifdef __IPHONE_10_0
--(BOOL)application:(UIApplication *)application 
-           openURL:(NSURL *)url 
+-(BOOL)application:(UIApplication *)application
+           openURL:(NSURL *)url
            options:(NSDictionary<NSString *,id> *)options{
     return [[Marketo sharedInstance] application:application
                                          openURL:url
@@ -593,11 +593,17 @@ MKTSecuritySignature *signature =
 
 ```Swift
 let sharedInstance = Marketo.sharedInstance()
-        
+
  // set secure signature
 let signature = MKTSecuritySignature(accessKey: <ACCESS_KEY>, signature: <SIGNATURE_TOKEN> , timestamp: <EXPIRY_TIMESTAMP>, email: <EMAIL>)
 sharedInstance.setSecureSignature(signature)
-        
+
 [sharedInstance removeSecureSignature];
 
 sharedInstance.getDeviceId()
+```
+
+Xcode 10 Project Configeration
+
+Click on File —-> workspace settings --> change ## New build system ## to ## Legacy build system ##
+![header](ScreenShots/Xcode_10_issue.png)
