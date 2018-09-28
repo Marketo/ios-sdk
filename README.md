@@ -603,7 +603,7 @@ sharedInstance.setSecureSignature(signature)
 sharedInstance.getDeviceId()
 ```
 
-Xcode 10 Project Configeration
+## Xcode 10 Project Configeration
 
-Click on File —-> workspace settings --> change ## New build system ## to ## Legacy build system ##
+Click on File —-> workspace settings --> change  New build system to Legacy build system
 ![header](ScreenShots/Xcode_10_issue.png)
