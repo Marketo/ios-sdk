@@ -20,7 +20,7 @@ Copyright 2015 Marketo, Inc. All rights reserved.
 LICENSE
 }
 
-s.author              = { "By Marketo, Adobe company" => "mbijapur@marketo.com" }
+s.author              = { "Marketo, Adobe company" => "mbijapur@marketo.com" }
 s.source              = { :git => "https://github.com/Marketo/ios-sdk.git", :tag => s.version, :branch => 'master' }
 s.source_files		  = 'Marketo.framework/**/*.h'
 
