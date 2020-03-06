@@ -20,8 +20,8 @@ Copyright 2015 Marketo, Inc. All rights reserved.
 LICENSE
 }
 
-s.author              = { "Sanniv Khare" => "skhare@marketo.com" }
-s.source              = { :git => "https://github.com/Marketo/ios-sdk.git", :tag => s.version, :branch => 'vespa-preprod' }
+s.author              = { "Marketo, Adobe company" => "mbijapur@marketo.com" }
+s.source              = { :git => "https://github.com/Marketo/ios-sdk.git", :tag => s.version, :branch => 'master' }
 s.source_files		  = 'Marketo.framework/**/*.h'
 
 s.platform            = :ios, '8.1'
@@ -34,7 +34,7 @@ s.frameworks          = 'SystemConfiguration', 'Security', 'CoreTelephony'
 s.library			  = 'sqlite3'
 s.resource_bundles 	  = {
     'MKTResources' => [
-        'ResourcePod/**/*.{png,plist,storyboard}'
+        'ResourcePod/**/*.{png,storyboard}'
     ]
 }
 end
