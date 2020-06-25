@@ -117,7 +117,7 @@
  */
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
 didReceiveNotificationResponse:(UNNotificationResponse *)response
-         withCompletionHandler:(void(^)())completionHandler;
+         withCompletionHandler:(void(^)(void))completionHandler;
 /*!
  * Set security Signature for Authentication
  * @param token - The Security Token recived from client server
