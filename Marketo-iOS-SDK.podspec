@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name                = "Marketo-iOS-SDK"
-s.version             = "0.7.7"
+s.version             = "0.7.8"
 s.summary             = "Add Marketo Mobile Engagement to your project."
 s.description         = <<-DESC
                             MarketoPod provides the following features:
@@ -36,5 +36,11 @@ s.resource_bundles 	  = {
     'MKTResources' => [
         'ResourcePod/**/*.{png,storyboard}'
     ]
+}
+s.pod_target_xcconfig = {
+'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'
+}
+s.user_target_xcconfig = {
+'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'
 }
 end
