@@ -32,8 +32,9 @@
  * Initializes Marketo SDK. This method should be called before calling any other Marketo SDK method.
  * @param appSecret An app secret used to initialize the app
  * @param munchkinID Used to connect to marketo end-point
+ * @param frameworkType Used to know type of application (viz., Native, Reactnative or Cordova)
  */
-- (void)initializeWithMunchkinID:(NSString *)munchkinID appSecret:(NSString *)appSecret launchOptions:(NSDictionary *)launchOptions;
+- (void)initializeWithMunchkinID:(NSString *)munchkinID appSecret:(NSString *)appSecret mobileFrameworkType:(NSString *)frameworkType launchOptions:(NSDictionary *)launchOptions;
 
 /*!
  * The timeout interval, in seconds. If during a connection attempt the request remains idle for longer
@@ -97,10 +98,10 @@
  * Deep link handler for Marketo Url and scheema
  * @param application The singleton app object
  * @param url The URL resource to open. This resource can be a network resource or a file. For information about the Apple-registered URL schemes, see
- * @param sourceApplication The bundle ID of the app that is requesting your app to open the URL (url)
+ * @param options The bundle ID of the app that is requesting your app to open the URL (url)
  * @param annotation A property list object supplied by the source app to communicate information to the receiving app.
  */
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options;
 
 /*!
  * Override System's userNotificationCenter method to Operate PushNotification
