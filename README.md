@@ -6,8 +6,8 @@ Installation instructions and more are [here](http://developers.marketo.com/docu
 
 Change Log
 
-v0.8.1 (May 02, 2023)
-- Initialization param to include development framework type (viz., native, cordova, ionic or react-native)
+v0.8.1 (June 05, 2023)
+- Initialization param to include development framework type (viz., native, cordova, ionic or reactnative)
 - Bug fixes & enhancements
 
 v0.8.0 (March 06, 2023)
