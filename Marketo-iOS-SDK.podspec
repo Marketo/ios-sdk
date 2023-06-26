@@ -22,7 +22,7 @@ LICENSE
 
 s.author              = { "Marketo, Adobe company" => "mbijapur@marketo.com" }
 s.source              = { :git => "https://github.com/Marketo/ios-sdk.git", :tag => s.version, :branch => 'master' }
-s.source_files		  = 'Marketo.framework/**/*.h'
+s.source_files		  = 'Marketo.xcframework/**/*.h'
 
 s.platform            = :ios, '12.0'
 s.requires_arc        = false
