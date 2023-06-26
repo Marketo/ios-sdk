@@ -6,6 +6,9 @@ Installation instructions and more are [here](http://developers.marketo.com/docu
 
 Change Log
 
+v0.8.2 (June 26, 2023)
+- Added support for XCFramework to support multiple platforms.
+
 v0.8.1 (June 05, 2023)
 - Initialization param to include development framework type (viz., native, cordova, ionic or reactnative)
 - Bug fixes & enhancements
@@ -122,7 +125,7 @@ pod install
 ##### 1. Open your AppDelegate.m or Bridging file (Swift) and import the Marketo.h header file.
 
 ```Objective-C
-import <Marketo/Marketo.h>
+import "Marketo.h"
 ```
 
 ##### 2. Paste the following code inside the application:didFinishLaunchingWithOptions: function.
@@ -131,7 +134,7 @@ import <Marketo/Marketo.h>
 
 ```Objective-C
 Marketo *sharedInstance = [Marketo sharedInstance];
-[sharedInstance initializeWithMunchkinID:@"munchkinAccountId" appSecret:@"secretKey" launchOptions:launchOptions];
+[sharedInstance initializeWithMunchkinID:@"munchkinAccountId" appSecret:@"secretKey" mobileFrameworkType:@"native" launchOptions:launchOptions];
 
 ```
 
@@ -139,7 +142,7 @@ Marketo *sharedInstance = [Marketo sharedInstance];
 
 ```Swift
 let sharedInstance: Marketo = Marketo.sharedInstance()
-sharedInstance.initializeWithMunchkinID("munchkinAccountId", appSecret: "secretKey", launchOptions: launchOptions)
+sharedInstance.initializeWithMunchkinID("munchkinAccountId", appSecret: "secretKey", mobileFrameworkType: "native", launchOptions: launchOptions)
 ```
 
 ##### 3. Replace munkinAccountId and secretKey above using your Munchkin Account Id and Secret Key which are found in the Marketo Admin Mobile Apps section.
@@ -365,17 +368,17 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
             openURL:(NSURL *)url 
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
             return [[Marketo sharedInstance] application:app
-                                                 openURL:url
-                                       sourceApplication:nil
-                                              annotation:nil];
+                                         openURL:url
+                                         options:nil];
 }
 ```
 
 ###### Swift
 
 ```Swift
-func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-    Marketo.sharedInstance().application(app, open: url, sourceApplication: nil, annotation: nil)
+private func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool
+{
+    return Marketo.sharedInstance().application(app, open: url, options: options)
 }
 ```
 
