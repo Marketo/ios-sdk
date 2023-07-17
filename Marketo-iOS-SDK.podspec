@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name                = "Marketo-iOS-SDK"
-s.version             = "0.8.2"
+s.version             = "0.8.3"
 s.summary             = "Add Marketo Mobile Engagement to your project."
 s.description         = <<-DESC
                             MarketoPod provides the following features:
@@ -21,15 +21,15 @@ LICENSE
 }
 
 s.author              = { "Marketo, Adobe company" => "mbijapur@marketo.com" }
-s.source              = { :git => "https://github.com/Marketo/ios-sdk.git", :tag => s.version, :branch => 'master' }
-s.source_files		  = 'Marketo.xcframework/**/*.h'
+s.source              = { :git => "https://github.com/Marketo/ios-sdk.git", :tag => s.version, :branch => 'pre-spmbranch' }
+s.source_files		  = 'Sources/MarketoFramework.xcframework/**/*.h'
 
 s.platform            = :ios, '12.0'
 s.requires_arc        = false
 
-s.preserve_paths      = 'Marketo.xcframework'
-s.public_header_files = 'Marketo.xcframework/**/*.h'
-s.vendored_frameworks = "Marketo.xcframework"
+s.preserve_paths      = 'Sources/MarketoFramework.xcframework'
+s.public_header_files = 'Sources/MarketoFramework.xcframework/**/*.h'
+s.vendored_frameworks = "Sources/MarketoFramework.xcframework"
 s.frameworks          = 'SystemConfiguration', 'Security', 'CoreTelephony'
 s.library			  = 'sqlite3'
 s.resource_bundles 	  = {
