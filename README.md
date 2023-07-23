@@ -117,8 +117,11 @@ pod install
 ##### 1. Select project from tha Project Navigator & Add Package Dependency as shown : 
 ![header](ScreenShots/ProjectName-dependencymanager.png)
 
-##### 2. Now add Marketo package from this Repo. Add this URL for this repository:  https://github.com/Marketo/ios-sdk.git. 
-![header](ScreenShots/ProjectName-dependencymanager.png)
+##### 2. Add Marketo package from this Repo. Add this URL for this repository:  https://github.com/Marketo/ios-sdk.git. 
+![header](ScreenShots/PromtForDependency.png)
+
+##### 3. Now a Resource bundle as shown 
+![header](ScreenShots/AddResourceBundle.mov)
 
 
 # Setup Swift Bridging Header  
