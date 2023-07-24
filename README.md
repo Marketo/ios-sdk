@@ -1,10 +1,14 @@
-# Marketo Mobile SDK for iOS 0.8.2
+# Marketo Mobile SDK for iOS 0.8.3
 
 The Marketo Mobile SDK allows integration with Marketo Mobile Engagement (MME).  
 
 Installation instructions and more are [here](http://developers.marketo.com/documentation/mobile/ "Marketo for Mobile").
 
 Change Log
+
+v0.8.3 (July 24, 2023)
+- Swift package manager support for iOS-SDK is added. 
+- Bug fixes & enhancements.
 
 v0.8.2 (June 26, 2023)
 - Added support for XCFramework to support multiple platforms.
@@ -106,6 +110,19 @@ pod install
 ```
 
 ##### 7. Open workspace in Xcode. open App.xcworkspace
+
+
+## Install Framework using Swift package manager
+
+##### 1. Select project from tha Project Navigator & Add Package Dependency as shown : 
+![header](ScreenShots/ProjectName-dependencymanager.png)
+
+##### 2. Add Marketo package from this Repo. Add this URL for this repository:  https://github.com/Marketo/ios-sdk.git. 
+![header](ScreenShots/PromtForDependency.png)
+
+##### 3. Now add Resource bundle as shown : Locate `MarketoFramework.XCframework` in project nagivator & open it in finder. Then drag & drop `MKTResources.bundle` to `Copy Bundle Resources`
+![header](ScreenShots/AddResourceBundle.gif)
+
 
 # Setup Swift Bridging Header  
 #####1. Go to File > New > File and Select Header File:
