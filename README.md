@@ -117,7 +117,7 @@ open App.xcworkspace
 
 ## Install Framework using Swift package manager
 
-##### 1. Select project from tha Project Navigator & Add Package Dependency as shown : 
+##### 1. Select project from the Project Navigator & under Add Package Dependency, click ‘+’ as shown below :
 ![header](ScreenShots/ProjectName-dependencymanager.png)
 
 ##### 2. Add Marketo package from this Repo. Add this URL for this repository:  https://github.com/Marketo/ios-sdk.git. 
