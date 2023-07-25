@@ -109,7 +109,10 @@ pod 'Marketo-iOS-SDK'
 pod install
 ```
 
-##### 7. Open workspace in Xcode. open App.xcworkspace
+##### 7. Open workspace in Xcode. 
+```Shell
+open App.xcworkspace
+```
 
 
 ## Install Framework using Swift package manager
@@ -142,7 +145,7 @@ pod install
 ##### 1. Open your AppDelegate.m or Bridging file (Swift) and import the Marketo.h header file.
 
 ```Objective-C
-import "Marketo.h"
+#import <MarketoFramework/MarketoFramework.h>
 ```
 
 ##### 2. Paste the following code inside the application:didFinishLaunchingWithOptions: function.
