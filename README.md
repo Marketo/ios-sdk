@@ -1,4 +1,4 @@
-# Marketo Mobile SDK for iOS 0.8.1
+# Marketo Mobile SDK for iOS 0.8.3
 
 The Marketo Mobile SDK allows integration with Marketo Mobile Engagement (MME).  
 
@@ -6,8 +6,15 @@ Installation instructions and more are [here](http://developers.marketo.com/docu
 
 Change Log
 
-v0.8.1 (May 02, 2023)
-- Initialization param to include development framework type (viz., native, cordova, ionic or react-native)
+v0.8.3 (July 24, 2023)
+- Swift package manager support for iOS-SDK is added. 
+- Bug fixes & enhancements.
+
+v0.8.2 (June 26, 2023)
+- Added support for XCFramework to support multiple platforms.
+
+v0.8.1 (June 05, 2023)
+- Initialization param to include development framework type (viz., native, cordova, ionic or reactnative)
 - Bug fixes & enhancements
 
 v0.8.0 (March 06, 2023)
@@ -102,7 +109,23 @@ pod 'Marketo-iOS-SDK'
 pod install
 ```
 
-##### 7. Open workspace in Xcode. open App.xcworkspace
+##### 7. Open workspace in Xcode. 
+```Shell
+open App.xcworkspace
+```
+
+
+## Install Framework using Swift package manager
+
+##### 1. Select project from the Project Navigator & under Add Package Dependency, click ‘+’ as shown below :
+![header](ScreenShots/ProjectName-dependencymanager.png)
+
+##### 2. Add Marketo package from this Repo. Add this URL for this repository:  https://github.com/Marketo/ios-sdk.git. 
+![header](ScreenShots/PromtForDependency.png)
+
+##### 3. Now add Resource bundle as shown : Locate `MarketoFramework.XCframework` in project nagivator & open it in finder. Then drag & drop `MKTResources.bundle` to `Copy Bundle Resources`
+![header](ScreenShots/AddResourceBundle.gif)
+
 
 # Setup Swift Bridging Header  
 #####1. Go to File > New > File and Select Header File:
@@ -122,7 +145,7 @@ pod install
 ##### 1. Open your AppDelegate.m or Bridging file (Swift) and import the Marketo.h header file.
 
 ```Objective-C
-import <Marketo/Marketo.h>
+#import <MarketoFramework/MarketoFramework.h>
 ```
 
 ##### 2. Paste the following code inside the application:didFinishLaunchingWithOptions: function.
@@ -131,7 +154,7 @@ import <Marketo/Marketo.h>
 
 ```Objective-C
 Marketo *sharedInstance = [Marketo sharedInstance];
-[sharedInstance initializeWithMunchkinID:@"munchkinAccountId" appSecret:@"secretKey" launchOptions:launchOptions];
+[sharedInstance initializeWithMunchkinID:@"munchkinAccountId" appSecret:@"secretKey" mobileFrameworkType:@"native" launchOptions:launchOptions];
 
 ```
 
@@ -139,7 +162,7 @@ Marketo *sharedInstance = [Marketo sharedInstance];
 
 ```Swift
 let sharedInstance: Marketo = Marketo.sharedInstance()
-sharedInstance.initializeWithMunchkinID("munchkinAccountId", appSecret: "secretKey", launchOptions: launchOptions)
+sharedInstance.initializeWithMunchkinID("munchkinAccountId", appSecret: "secretKey", mobileFrameworkType: "native", launchOptions: launchOptions)
 ```
 
 ##### 3. Replace munkinAccountId and secretKey above using your Munchkin Account Id and Secret Key which are found in the Marketo Admin Mobile Apps section.
@@ -365,17 +388,17 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
             openURL:(NSURL *)url 
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
             return [[Marketo sharedInstance] application:app
-                                                 openURL:url
-                                       sourceApplication:nil
-                                              annotation:nil];
+                                         openURL:url
+                                         options:nil];
 }
 ```
 
 ###### Swift
 
 ```Swift
-func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-    Marketo.sharedInstance().application(app, open: url, sourceApplication: nil, annotation: nil)
+private func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool
+{
+    return Marketo.sharedInstance().application(app, open: url, options: options)
 }
 ```
 
