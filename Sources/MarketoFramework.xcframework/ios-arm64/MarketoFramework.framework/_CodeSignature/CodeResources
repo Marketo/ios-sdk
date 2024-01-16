@@ -26,7 +26,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		dt+0Oe4Qnm6dWxXvPmFxBL9c2aA=
+		5hLwVBwllgFHlcg7Pwp6FaO6NnA=
 		</data>
 		<key>MKTResources.bundle/Info.plist</key>
 		<data>
@@ -126,7 +126,11 @@
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		whsbtGq4g1gq3ovyxUCSl2FNDpQ=
+		k4z2o/EENGXHAA9cMxUchvswK/g=
+		</data>
+		<key>PrivacyInfo.xcprivacy</key>
+		<data>
+		+MWhxpeemDo0KtWTQbQXtbaX+pg=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -338,7 +342,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			FkGB39QFbkbwSNqvdDoqKCfqQPdyFMSb0/SYqi2807g=
+			sE5OBe1jr7X9Ze2WhH+fBcAQPAhjQ/jv2yAk4DI+t5M=
+			</data>
+		</dict>
+		<key>PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Mid6fDXjeFWEgmnsK4cMm6vfFTKVSYYcw05zOCcXf3I=
 			</data>
 		</dict>
 	</dict>

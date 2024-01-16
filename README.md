@@ -1,10 +1,13 @@
-# Marketo Mobile SDK for iOS 0.8.4
+# Marketo Mobile SDK for iOS 0.8.5
 
 The Marketo Mobile SDK allows integration with Marketo Mobile Engagement (MME).  
 
 Installation instructions and more are [here](http://developers.marketo.com/documentation/mobile/ "Marketo for Mobile").
 
 Change Log
+
+v0.8.5 (January 16, 2024)
+- SDK includes iOS Privacy manifest as per Apple guidelines.
 
 v0.8.4 (August 10, 2023)
 - Enhancements & bug fixes.
